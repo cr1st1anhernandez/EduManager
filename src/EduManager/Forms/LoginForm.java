@@ -5,6 +5,7 @@
 package EduManager.Forms;
 
 import EduManager.Application.Application;
+import EduManager.Controllers.UserController;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
@@ -25,6 +26,7 @@ public class LoginForm extends javax.swing.JFrame {
 	public LoginForm() {
 		initComponents();
 	}
+	UserController userController = new UserController();
 	Utilities utilities = new Utilities();
 
 	/**
@@ -266,6 +268,11 @@ public class LoginForm extends javax.swing.JFrame {
 
         private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
 		// TODO add your handling code here:
+		String password = txtPassword.getText();
+		String username = myTextField1.getText();
+		if (!userController.login(username, password)) {
+			return;
+		}
 		this.setVisible(false);
 		FlatRobotoFont.install();
 		FlatLaf.registerCustomDefaultsSource("themes");
@@ -280,12 +287,12 @@ public class LoginForm extends javax.swing.JFrame {
         }//GEN-LAST:event_txtPasswordFocusGained
 
         private void panelRound12FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panelRound12FocusLost
-                // TODO add your handling code here:
-		
+		// TODO add your handling code here:
+
         }//GEN-LAST:event_panelRound12FocusLost
 
         private void txtPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPasswordFocusLost
-                // TODO add your handling code here:
+		// TODO add your handling code here:
 		panelRound12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(236, 236, 238), 2));
         }//GEN-LAST:event_txtPasswordFocusLost
 
