@@ -1,4 +1,4 @@
-package utils;
+package EduManager.Utils;
 
 import java.util.Iterator;
 import java.util.Stack;
