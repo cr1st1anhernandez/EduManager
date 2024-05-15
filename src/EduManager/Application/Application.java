@@ -1,4 +1,4 @@
-package application;
+package EduManager.Application;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatLaf;
@@ -11,14 +11,14 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
-import components.Background;
-import forms.DashboardForm;
-import menu.FormManager;
+import EduManager.Components.Background;
+import EduManager.Forms.ActionsForm;
+import EduManager.Menu.FormManager;
 import raven.popup.GlassPanePopup;
 
 /**
  *
- * @author Raven
+ * @author Cr1st1anH3rnand3z
  */
 public class Application extends JFrame {
 
@@ -30,7 +30,7 @@ public class Application extends JFrame {
 
     private void init() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(UIScale.scale(new Dimension(1366, 768)));
+        setSize(UIScale.scale(new Dimension(1920, 1080)));
         setLocationRelativeTo(null);
         if (UNDECORATED) {
             setUndecorated(UNDECORATED);
@@ -42,7 +42,7 @@ public class Application extends JFrame {
         // applyComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         GlassPanePopup.install(this);
         FormManager.install(this, UNDECORATED);
-        FormManager.showForm(new DashboardForm());
+        FormManager.showForm(new ActionsForm());
         // applyComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
     }
 

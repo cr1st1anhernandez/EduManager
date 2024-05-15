@@ -1,4 +1,4 @@
-package menu;
+package EduManager.Menu;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.event.MouseAdapter;

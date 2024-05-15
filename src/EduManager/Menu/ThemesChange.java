@@ -1,4 +1,4 @@
-package menu;
+package EduManager.Menu;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatLaf;
@@ -39,8 +39,8 @@ public class ThemesChange extends JPanel {
         panel.putClientProperty(FlatClientProperties.STYLE, ""
                 + "arc:999;"
                 + "background:darken($Drawer.background,5%)");
-        JButton buttonLight = new JButton(createIcon("resources/icon/light.svg"));
-        JButton buttonDark = new JButton(createIcon("resources/icon/dark.svg"));
+        JButton buttonLight = new JButton(createIcon("EduManager/Icons/light.svg"));
+        JButton buttonDark = new JButton(createIcon("EduManager/Icons/dark.svg"));
         buttonLight.addActionListener(e -> changeMode(false));
         buttonDark.addActionListener(e -> changeMode(true));
         buttonLight.putClientProperty(FlatClientProperties.STYLE, ""

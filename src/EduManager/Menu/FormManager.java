@@ -1,13 +1,13 @@
-package menu;
+package EduManager.Menu;
 
 import java.awt.Image;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import components.MainForm;
-import components.SimpleForm;
-import swing.slider.PanelSlider;
-import swing.slider.SimpleTransition;
-import utils.UndoRedo;
+import EduManager.Components.MainForm;
+import EduManager.Components.SimpleForm;
+import EduManager.Slider.PanelSlider;
+import EduManager.Slider.SimpleTransition;
+import EduManager.Utils.UndoRedo;
 
 /**
  *

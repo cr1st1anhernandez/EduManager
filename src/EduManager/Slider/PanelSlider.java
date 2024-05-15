@@ -1,4 +1,4 @@
-package swing.slider;
+package EduManager.Slider;
 
 import com.formdev.flatlaf.util.Animator;
 import com.formdev.flatlaf.util.CubicBezierEasing;

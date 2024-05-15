@@ -1,4 +1,4 @@
-package menu;
+package EduManager.Menu;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
@@ -19,9 +19,9 @@ import raven.drawer.component.menu.SimpleMenuOption;
 import raven.drawer.component.menu.SimpleMenuStyle;
 import raven.drawer.component.menu.data.Item;
 import raven.drawer.component.menu.data.MenuItem;
-import forms.DashboardForm;
-import forms.InboxForm;
-import forms.ReadForm;
+import EduManager.Forms.ActionsForm;
+import EduManager.Forms.ProfileForm;
+import EduManager.Forms.SupportForm;
 import raven.swing.AvatarIcon;
 
 /**
@@ -43,7 +43,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
 
     @Override
     public SimpleHeaderData getSimpleHeaderData() {
-        AvatarIcon icon = new AvatarIcon(getClass().getResource("/resources/image/profile.png"), 60, 60, 999);
+        AvatarIcon icon = new AvatarIcon(getClass().getResource("/EduManager/Images/profile.png"), 60, 60, 999);
         icon.setBorder(2);
         return new SimpleHeaderData()
                 .setIcon(icon)
@@ -75,57 +75,13 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
 
         MenuItem items[] = new MenuItem[]{
             new Item.Label("MAIN"),
-            new Item("Dashboard", "dashboard.svg"),
-            new Item.Label("WEB APP"),
-            new Item("Email", "email.svg")
-            .subMenu("Inbox")
-            .subMenu("Read")
-            .subMenu(
-            new Item("Group Read")
-            .subMenu("Read 1")
-            .subMenu("Read 2")
-            .subMenu(
-            new Item("Group Item")
-            .subMenu("Item 1")
-            .subMenu("Item 2")
-            .subMenu("Item 3")
-            .subMenu("Item 4")
-            .subMenu("Item 5")
-            .subMenu("Item 6")
-            )
-            .subMenu("Read 3")
-            .subMenu("Read 4")
-            .subMenu("Read 5")
-            )
-            .subMenu("Compost"),
-            new Item("Chat", "chat.svg"),
+            new Item("Actions", "dashboard.svg"),
+            new Item.Label("CUENTA"),
+            new Item("Configuracion", "ui.svg")
+            .subMenu("Editar"),
             new Item("Calendar", "calendar.svg"),
-            new Item.Label("COMPONENT"),
-            new Item("Advanced UI", "ui.svg")
-            .subMenu("Cropper")
-            .subMenu("Owl Carousel")
-            .subMenu("Sweet Alert"),
-            new Item("Forms", "forms.svg")
-            .subMenu("Basic Elements")
-            .subMenu("Advanced Elements")
-            .subMenu("SEditors")
-            .subMenu("Wizard"),
-            new Item.Label("OTHER"),
-            new Item("Charts", "chart.svg")
-            .subMenu("Apex")
-            .subMenu("Flot")
-            .subMenu("Sparkline"),
-            new Item("Icons", "icon.svg")
-            .subMenu("Feather Icons")
-            .subMenu("Flag Icons")
-            .subMenu("Mdi Icons"),
-            new Item("Special Pages", "page.svg")
-            .subMenu("Blank page")
-            .subMenu("Faq")
-            .subMenu("Invoice")
-            .subMenu("Profile")
-            .subMenu("Pricing")
-            .subMenu("Timeline")
+            new Item.Label("OTROS"),
+	    new Item("SOPORTE", "chat.svg"),
         };
 
         SimpleMenuOption simpleMenuOption = new SimpleMenuOption() {
@@ -165,14 +121,14 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
             public void selected(MenuAction action, int[] index) {
                 if (index.length == 1) {
                     if (index[0] == 0) {
-                        FormManager.showForm(new DashboardForm());
+                        FormManager.showForm(new ActionsForm());
                     }
                 } else if (index.length == 2) {
                     if (index[0] == 1) {
                         if (index[1] == 0) {
-                            FormManager.showForm(new InboxForm());
+                            FormManager.showForm(new ProfileForm());
                         } else if (index[1] == 1) {
-                            FormManager.showForm(new ReadForm());
+                            FormManager.showForm(new SupportForm());
                         }
                     }
                 }
@@ -180,7 +136,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
         });
 
         simpleMenuOption.setMenus(items)
-                .setBaseIconPath("resources/menu")
+                .setBaseIconPath("EduManager/Icons/")
                 .setIconScale(0.45f);
         return simpleMenuOption;
     }

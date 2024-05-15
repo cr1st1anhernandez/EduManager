@@ -1,4 +1,4 @@
-package swing.slider;
+package EduManager.Slider;
 
 import java.awt.Component;
 import java.awt.Graphics;

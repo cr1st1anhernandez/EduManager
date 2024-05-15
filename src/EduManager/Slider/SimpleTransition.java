@@ -1,4 +1,4 @@
-package swing.slider;
+package EduManager.Slider;
 
 import com.formdev.flatlaf.ui.FlatUIUtils;
 import com.formdev.flatlaf.util.UIScale;
