@@ -1,4 +1,4 @@
-package components;
+package EduManager.Components;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
@@ -8,10 +8,10 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import net.miginfocom.swing.MigLayout;
-import menu.FormManager;
-import swing.slider.PanelSlider;
-import swing.slider.SimpleTransition;
-import swing.slider.SliderTransition;
+import EduManager.Menu.FormManager;
+import EduManager.Slider.PanelSlider;
+import EduManager.Slider.SimpleTransition;
+import EduManager.Slider.SliderTransition;
 
 /**
  *
@@ -51,10 +51,10 @@ public class MainForm extends JPanel {
         panel.putClientProperty(FlatClientProperties.STYLE, ""
                 + "background:null");
 
-        cmdMenu = createButton(new FlatSVGIcon("resources/icon/menu.svg"));
-        cmdUndo = createButton(new FlatSVGIcon("resources/icon/undo.svg"));
-        cmdRedo = createButton(new FlatSVGIcon("resources/icon/redo.svg"));
-        cmdRefresh = createButton(new FlatSVGIcon("resources/icon/refresh.svg"));
+        cmdMenu = createButton(new FlatSVGIcon("EduManager/Icons/menu.svg"));
+        cmdUndo = createButton(new FlatSVGIcon("EduManager/Icons/undo.svg"));
+        cmdRedo = createButton(new FlatSVGIcon("EduManager/Icons/redo.svg"));
+        
         cmdMenu.addActionListener(e -> {
             FormManager.showMenu();
         });
@@ -64,14 +64,10 @@ public class MainForm extends JPanel {
         cmdRedo.addActionListener(e -> {
             FormManager.redo();
         });
-        cmdRefresh.addActionListener(e -> {
-            FormManager.refresh();
-        });
-
+        
         panel.add(cmdMenu);
         panel.add(cmdUndo);
         panel.add(cmdRedo);
-        panel.add(cmdRefresh);
         return panel;
     }
 
@@ -104,13 +100,11 @@ public class MainForm extends JPanel {
     private void checkButton() {
         cmdUndo.setEnabled(FormManager.getForms().isUndoAble());
         cmdRedo.setEnabled(FormManager.getForms().isRedoAble());
-        cmdRefresh.setEnabled(FormManager.getForms().getCurrent() != null);
     }
 
     private JPanel header;
     private JButton cmdMenu;
     private JButton cmdUndo;
     private JButton cmdRedo;
-    private JButton cmdRefresh;
     private PanelSlider panelSlider;
 }
