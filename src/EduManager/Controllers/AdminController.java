@@ -1,5 +1,5 @@
 package EduManager.Controllers;
 
-public class StudentController {
-
+public class AdminController {
+	
 }

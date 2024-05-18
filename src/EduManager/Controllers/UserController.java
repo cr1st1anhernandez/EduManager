@@ -32,39 +32,10 @@ public class UserController {
   
   public static boolean login(String username, String password){
 	  user = Database.login(username,password);
-	  if (user == null)
-		return false;
-	  return true;
-  }
-
-  /*public static boolean login(String username, String password) {
-    user = Database.login(username, password);
-    if (user == null)
-      return false;
-    if (user instanceof Student) {
-      student = (Student) user;
-      StudentView student = new StudentView();
-      student.setVisible(true);
-    } else if (user instanceof Teacher) {
-      teacher = (Teacher) user;
-      TeacherView teacher = new TeacherView();
-      teacher.setVisible(true);
-    } else if (user instanceof Coordinator) {
-      coordinator = (Coordinator) user;
-      CoordinatorView coordinator = new CoordinatorView();
-      coordinator.setVisible(true);
-    }
-    return true;
-  }*/
-
-  public static void registerUser(String userType, Integer userId, String name,
-      String curp, String email, String career, String password) {
-    Database.createUser(userType, userId, name, curp, email, career, password);
+	  return user != null;
   }
 
   public static void logout() {
-    /*LoginView login = new LoginView();
-    login.setVisible(true);
-    user = null;*/
+    user = null;
   }
 }
