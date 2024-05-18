@@ -1,5 +1,6 @@
 package EduManager.Menu;
 
+import EduManager.Entities.Student;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Color;
@@ -23,6 +24,12 @@ import EduManager.Forms.ActionsForm;
 import EduManager.Forms.ProfileForm;
 import EduManager.Forms.SupportForm;
 import raven.swing.AvatarIcon;
+import EduManager.Controllers.UserController;
+import EduManager.Entities.Coordinator;
+import EduManager.Entities.Teacher;
+import EduManager.Forms.CoordinatorForm;
+import EduManager.Forms.StudentForm;
+import EduManager.Forms.TeacherForm;
 
 /**
  *
@@ -121,7 +128,16 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
             public void selected(MenuAction action, int[] index) {
                 if (index.length == 1) {
                     if (index[0] == 0) {
-                        FormManager.showForm(new ActionsForm());
+			
+			if(UserController.getUser() instanceof Student){
+				FormManager.showForm(new StudentForm());
+			} else if (UserController.getUser() instanceof Coordinator){
+				FormManager.showForm(new CoordinatorForm());
+			} else if (UserController.getUser() instanceof Teacher) {
+				FormManager.showForm(new TeacherForm());
+			} else {
+				FormManager.showForm(new ActionsForm());
+			}
                     }
                 } else if (index.length == 2) {
                     if (index[0] == 1) {

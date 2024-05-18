@@ -268,11 +268,13 @@ public class LoginForm extends javax.swing.JFrame {
 
         private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
 		// TODO add your handling code here:
-		String password = txtPassword.getText();
+		String password = new String(txtPassword.getPassword());
 		String username = myTextField1.getText();
 		if (!userController.login(username, password)) {
+			System.out.println("Not login");
 			return;
 		}
+		System.out.println("Login");
 		this.setVisible(false);
 		FlatRobotoFont.install();
 		FlatLaf.registerCustomDefaultsSource("themes");
