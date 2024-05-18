@@ -10,6 +10,4 @@ import lombok.NoArgsConstructor;
 public class Subject {
     private int subjectId;
     private String name;
-    private int credits;
-    private int numUnits;
 }

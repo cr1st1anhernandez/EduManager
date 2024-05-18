@@ -1,17 +1,25 @@
 package EduManager.Entities;
 
-import lombok.AllArgsConstructor;
+import java.sql.Date;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 public class Student extends User {
-  private int studentId;
-  private String career;
-  public Student(int studentId, String name, String curp, String email, String career, String password) {
-    super(name, curp, email, career, password);
-    this.studentId = studentId;
-    this.career = career;
-  }
+
+	private String career;
+	private Date birthDate;
+	private char gender;
+	private String curp;
+	private int semester;
+
+	public Student(int userId, String password, String firstName, String lastName, String email, String phoneNumber, String curp, Date birthDate, char gender, String career, int semester) {
+		super(userId, password, firstName, lastName, email, phoneNumber);
+		this.career = career;
+		this.birthDate = birthDate;
+		this.gender = gender;
+		this.curp = curp;
+		this.semester = semester;
+	}
 }

@@ -1,17 +1,20 @@
 package EduManager.Entities;
 
-import lombok.AllArgsConstructor;
+import java.sql.Date;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 public class Coordinator extends User {
-  private int coordinatorId;
-  private String area;
-  public Coordinator(int coordinatorId, String name, String curp, String email, String area, String password) {
-    super(name, curp, email, area, password);
-    this.coordinatorId = coordinatorId;
-    this.area = area;
-  }
+
+	private String area;
+	private Date birthDate;
+	private char gender;
+	private String curp;
+
+	public Coordinator(int userId, String password, String firstName, String lastName, String email, String phoneNumber, String curp, Date birthDate, char gender, String area) {
+		super(userId, password, firstName, lastName, email, phoneNumber);
+		this.area = area;
+	}
 }
