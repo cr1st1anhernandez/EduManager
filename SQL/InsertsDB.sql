@@ -1,83 +1,3 @@
-DROP DATABASE IF EXISTS Control_escolar;
-CREATE DATABASE Control_escolar;
-USE Control_escolar;
-CREATE TABLE Teacher (
-    teacherId INT(8) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    firstName VARCHAR(255) NOT NULL,
-    lastName VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    phoneNumber VARCHAR(20) NOT NULL,
-    curp VARCHAR(18) NOT NULL,
-    birthDate DATE NOT NULL,
-    gender CHAR(1) NOT NULL,
-    career VARCHAR(255) NOT NULL,
-    PRIMARY KEY (teacherId)
-);
-
-CREATE TABLE Coordinator(
-	coordinatorId INT(8) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    firstName VARCHAR(255) NOT NULL,
-    lastName VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    phoneNumber VARCHAR(20) NOT NULL,
-    curp VARCHAR(18) NOT NULL,
-    birthDate DATE NOT NULL,
-    gender CHAR(1) NOT NULL,
-    area VARCHAR(255) NOT NULL,
-    PRIMARY KEY (coordinatorId)
-);
-
-CREATE TABLE Student (
-    studentId INT(8) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    firstName VARCHAR(255) NOT NULL,
-    lastName VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    phoneNumber VARCHAR(20) NOT NULL,
-    curp VARCHAR(18) NOT NULL,
-    birthDate DATE NOT NULL,
-    gender CHAR(1) NOT NULL,
-    career VARCHAR(255) NOT NULL,
-    semester INT(1) NOT NULL,
-    PRIMARY KEY (studentId)
-);
-
-CREATE TABLE Subject (
-    subjectId INT NOT NULL AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL,
-    PRIMARY KEY (subjectId)
-);
-
-CREATE TABLE `Group` (
-    groupId VARCHAR(3) NOT NULL,
-    PRIMARY KEY (groupId)
-);
-
-CREATE TABLE Group_Subject (
-    groupId VARCHAR(3) NOT NULL,
-    subjectId INT NOT NULL,
-    startTime TIME NOT NULL,
-    endTime TIME NOT NULL,
-    teacherId INT NOT NULL,
-	daysOfWeek VARCHAR(7) NOT NULL,
-    FOREIGN KEY (groupId) REFERENCES `Group`(groupId),
-    FOREIGN KEY (subjectId) REFERENCES Subject(subjectId),
-    FOREIGN KEY (teacherId) REFERENCES Teacher(teacherId)
-);
-
-CREATE TABLE Admin (
-	adminId INT(8) NOT NULL,
-	password VARCHAR(255) NOT NULL,
-    firstName VARCHAR(255) NOT NULL,
-    lastName VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    phoneNumber VARCHAR(20) NOT NULL,
-	PRIMARY KEY (adminId)
-);
-
--- Inserción de datos en la tabla Teacher
 INSERT INTO Teacher (teacherId, password, firstName, lastName, email, phoneNumber, curp, birthDate, gender, career)
 VALUES
 (10000001, 'bd9509aba7d1e5ab68bc526195d369f2418f26f044f5bc2c9af3871a486a6bd3', 'Ana', 'Lopez', 'ana.lopez@example.com', '555-1234', 'LOPA000101HDFRNN01', '1980-01-01', 'F', 'Mathematics'),
@@ -177,7 +97,7 @@ VALUES
 (10000095, 'bd9509aba7d1e5ab68bc526195d369f2418f26f044f5bc2c9af3871a486a6bd3', 'Angela', 'Lopez', 'angela.lopez@example.com', '555-1328', 'LOAN800101HDFRNN95', '1982-12-03', 'F', 'History'),
 (10000096, 'bd9509aba7d1e5ab68bc526195d369f2418f26f044f5bc2c9af3871a486a6bd3', 'Rafael', 'Hernandez', 'rafael.hernandez@example.com', '555-1329', 'HERA800101HDFRNN96', '1984-01-04', 'M', 'Geography'),
 (10000097, 'bd9509aba7d1e5ab68bc526195d369f2418f26f044f5bc2c9af3871a486a6bd3', 'Luz', 'Ramirez', 'luz.ramirez@example.com', '555-1330', 'RALO800101HDFRNN97', '1986-02-05', 'F', 'Philosophy');
--- Inserción de datos en la tabla Coordinator
+
 INSERT INTO Coordinator (coordinatorId, password, firstName, lastName, email, phoneNumber, curp, birthDate, gender, area)
 VALUES
 (20000001, 'bd9509aba7d1e5ab68bc526195d369f2418f26f044f5bc2c9af3871a486a6bd3', 'Fernando', 'Castro', 'fernando.castro@example.com', '555-2244', 'CAFE800101HDFRNN11', '1980-11-11', 'M', 'Science'),
@@ -191,7 +111,6 @@ VALUES
 (20000009, 'bd9509aba7d1e5ab68bc526195d369f2418f26f044f5bc2c9af3871a486a6bd3', 'Ricardo', 'Vega', 'ricardo.vega@example.com', '555-2252', 'VERI800101HDFRNN19', '1996-07-19', 'M', 'Technology'),
 (20000010, 'bd9509aba7d1e5ab68bc526195d369f2418f26f044f5bc2c9af3871a486a6bd3', 'Adriana', 'Morales', 'adriana.morales@example.com', '555-2253', 'MOAD800101HDFRNN20', '1998-08-20', 'F', 'Education');
 
--- Inserción de datos en la tabla Student
 INSERT INTO Student (studentId, password, firstName, lastName, email, phoneNumber, curp, birthDate, gender, career, semester)
 VALUES
 (22161096, 'bd9509aba7d1e5ab68bc526195d369f2418f26f044f5bc2c9af3871a486a6bd3', 'Jose', 'Navarro', 'jose.navarro@example.com', '555-3344', 'NAJO800101HDFRNN21', '2000-09-21', 'M', 'Engineering', 1),
@@ -223,7 +142,6 @@ VALUES
 (30000117, 'bd9509aba7d1e5ab68bc526195d369f2418f26f044f5bc2c9af3871a486a6bd3', 'Pedro', 'Gonzalez', 'pedro.gonzalez@example.com', '555-3417', 'GOPE800101HDFRNN47', '2006-07-17', 'M', 'Technology', 7),
 (30000118, 'bd9509aba7d1e5ab68bc526195d369f2418f26f044f5bc2c9af3871a486a6bd3', 'Sofia', 'Navarro', 'sofia.navarro@example.com', '555-3418', 'NASO800101HDFRNN48', '2007-08-18', 'F', 'Science', 8);
 
--- Inserción de datos en la tabla Subject
 INSERT INTO Subject (name)
 VALUES
 ('Matematicas Discretas'),
@@ -248,7 +166,6 @@ VALUES
 ('Contabilidad'),
 ('Vision por Computadora');
 
--- Inserción de datos en la tabla Group
 INSERT INTO `Group` (groupId)
 VALUES
 ('4SA'),
@@ -272,8 +189,7 @@ VALUES
 ('4SL'),
 ('4SM');
 
--- Inserción de datos en la tabla Group_Subject
-INSERT INTO Group_Subject (groupId, subjectId, startTime, endTime, teacherId, daysOfWeek)
+INSERT INTO GroupSubject (groupId, subjectId, startTime, endTime, teacherId, daysOfWeek)
 VALUES
 ('4SA', 1, '08:00:00', '09:00:00', 10000001,'LMX'),
 ('4SB', 2, '09:00:00', '10:00:00', 10000002,'LMXJ'),
@@ -348,4 +264,16 @@ VALUES
 ('4SI', 11, '07:00:00', '08:00:00', 10000071,  'LMX'),
 ('4SJ', 12, '08:00:00', '09:00:00', 10000072,  'LMXJ'),
 ('4SK', 13, '09:00:00', '10:00:00', 10000073,  'LMXJV'),
-('4SL', 14, '10:00:00', '11:00:00', 10000074, 'LMXJV')
+('4SL', 14, '10:00:00', '11:00:00', 10000074, 'LMXJV');
+
+INSERT INTO Enrollment (studentId, groupSubjectId) VALUES 
+(22161096, 1),
+(22161096, 2),
+(22161096, 3),
+(22161096, 4),
+(22161096, 5),
+(22161096, 6),
+(22161096, 7),
+(22161096, 8),
+(22161096, 9),
+(22161096, 10);
