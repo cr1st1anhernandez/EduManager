@@ -21,6 +21,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
+import javax.swing.ListCellRenderer;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.event.PopupMenuEvent;
@@ -34,6 +35,13 @@ import org.jdesktop.animation.timing.TimingTargetAdapter;
 //import scrollbar.ScrollBarCustom;
 
 public class Combobox<E> extends JComboBox<E> {
+	
+	
+    Color colorBackground = Color.decode("#0d9488");
+    
+    public void setColorBackground(Color color){
+	    colorBackground = color;
+    }
 
     public String getLabeText() {
         return labeText;
@@ -69,7 +77,7 @@ public class Combobox<E> extends JComboBox<E> {
                 Component com = super.getListCellRendererComponent(jlist, o, i, bln, bln1);
                 setBorder(new EmptyBorder(5, 5, 5, 5));
                 if (bln) {
-                    com.setBackground(new Color(240, 240, 240));
+                    com.setBackground(colorBackground);
                 }
                 return com;
             }

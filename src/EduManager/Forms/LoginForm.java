@@ -77,6 +77,8 @@ public class LoginForm extends javax.swing.JFrame {
                 lblUser1.setText("Contraseña");
 
                 btnLogin.setText("Iniciar Sesión");
+                btnLogin.setFocusPainted(false);
+                btnLogin.setFocusable(false);
                 btnLogin.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 btnLoginActionPerformed(evt);
@@ -227,7 +229,7 @@ public class LoginForm extends javax.swing.JFrame {
                 jPanel1Layout.setHorizontalGroup(
                         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addContainerGap(471, Short.MAX_VALUE)
+                                .addContainerGap(451, Short.MAX_VALUE)
                                 .addComponent(panelRound2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, 0)
                                 .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)

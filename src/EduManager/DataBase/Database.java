@@ -1,14 +1,19 @@
 package EduManager.DataBase;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import EduManager.Entities.Admin;
 import EduManager.Entities.Coordinator;
+import EduManager.Entities.Enrollment;
+import EduManager.Entities.GroupSubject;
 import EduManager.Entities.Student;
 import EduManager.Entities.Teacher;
 import EduManager.Entities.User;
 import EduManager.Utils.Utilities;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class Database {
 
@@ -16,9 +21,60 @@ public class Database {
 		DatabaseAccess.connect();
 	}
 
-	public static void main(String[] args) {
-		Database db = new Database();
+	public static List<GroupSubject> getGroupsSubjects() {
+		List<GroupSubject> groupSubjects = new ArrayList<>();
+		try {
+			DatabaseAccess.connect();
+			String query = "SELECT gs.groupId, gs.subjectId, s.name AS subjectName, gs.startTime, gs.endTime, gs.teacherId, "
+				+ "CONCAT(t.firstName, ' ', t.lastName) AS teacherName, gs.daysOfWeek "
+				+ "FROM GroupSubject gs "
+				+ "JOIN Subject s ON gs.subjectId = s.subjectId "
+				+ "JOIN Teacher t ON gs.teacherId = t.teacherId";
+			PreparedStatement preparedStatement = DatabaseAccess.getConnection().prepareStatement(query);
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				GroupSubject groupSubject = new GroupSubject();
+				groupSubject.setGroupId(resultSet.getString("groupId"));
+				groupSubject.setSubjectId(resultSet.getInt("subjectId"));
+				groupSubject.setSubjectName(resultSet.getString("subjectName"));
+				groupSubject.setStartTime(resultSet.getTime("startTime"));
+				groupSubject.setEndTime(resultSet.getTime("endTime"));
+				groupSubject.setTeacherId(resultSet.getInt("teacherId"));
+				groupSubject.setDaysOfWeek(resultSet.getString("daysOfWeek"));
+				groupSubject.setTeacherName(resultSet.getString("teacherName"));
+				groupSubjects.add(groupSubject);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DatabaseAccess.closeConnection();
+		}
+		return groupSubjects;
 	}
+
+  public static List<Enrollment> getEnrollments() {
+        List<Enrollment> enrollments = new ArrayList<>();
+        try {
+            DatabaseAccess.connect();
+            String query = "SELECT * FROM Enrollment";
+            PreparedStatement preparedStatement = DatabaseAccess.getConnection().prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Enrollment enrollment = new Enrollment();
+                enrollment.setEnrollmentId(resultSet.getInt("enrollmentId"));
+                enrollment.setStudentId(resultSet.getInt("studentId"));
+                enrollment.setGroupSubjectId(resultSet.getInt("groupSubjectId"));
+                enrollments.add(enrollment);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseAccess.closeConnection();
+        }
+        return enrollments;
+    }
 
 	public static User login(String username, String password) {
 		try {
@@ -116,4 +172,5 @@ public class Database {
 		}
 		return null;
 	}
+
 }
