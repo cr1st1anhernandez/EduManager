@@ -5,8 +5,6 @@ import EduManager.Components.SimpleForm;
 import EduManager.Controllers.GroupSubjectController;
 import EduManager.Entities.GroupSubject;
 import java.awt.Color;
-import EduManager.scheduleTable.TableActionCellRender;
-import EduManager.scheduleTable.TableActionEvent;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
