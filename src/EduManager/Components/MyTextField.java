@@ -19,7 +19,7 @@ public class MyTextField extends JTextField implements FocusListener {
         setBackground(new Color(0, 0, 0, 0));
         setForeground(Color.decode("#6F6F81"));
         setFont(new java.awt.Font("CaskaydiaCove NF", 1, 16));
-        setSelectionColor(Color.decode("#2563eb"));
+        setSelectionColor(new java.awt.Color(13, 148, 136));
         setMargin(new Insets(10, 15, 10, 15));
         
         setBorder(javax.swing.BorderFactory.createLineBorder(Color.decode("#ECECEE"), 2, true));

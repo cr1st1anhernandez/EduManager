@@ -1,42 +1,46 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ */
 package EduManager.Components;
 
 import EduManager.Controllers.EnrollmentController;
 import EduManager.Entities.Enrollment;
-import javax.swing.JPanel;
+import java.util.List;
+import javax.swing.JFrame;
 
-public class GroupSubjectComponent extends javax.swing.JPanel {
+/**
+ *
+ * @author cristian
+ */
+public class GroupComponent extends javax.swing.JPanel {
 
-	EnrollmentController enrollmentController = new EnrollmentController();
-	Enrollment enrollment = new Enrollment();
 	int groupSubjectId;
-	int studentId;
+	EnrollmentController enrollmentController = new EnrollmentController();
 
-	public GroupSubjectComponent() {
+	
+	public GroupComponent() {
 		initComponents();
 	}
-
-	public void setGroupSubjectId(int groupSubjectId) {
-		this.groupSubjectId = groupSubjectId;
+	
+	public void setDaysOfWeek(String daysOfWeek){
+		lblDaysOfWeek.setText(daysOfWeek);
 	}
-
-	public void setStudentId(int studentId) {
-		this.studentId = studentId;
+	
+	public void setGroup(String group){
+		lblGroup.setText(group);
 	}
-
-	public void setDaysOfWeek(String days) {
-		lblDaysOfWeek.setText(days);
+	
+	public void setHour(String hour){
+		lblHour.setText(hour);
 	}
-
-	public void setSubject(String subject) {
+	
+	public void setSubject(String subject){
 		lblSubject.setText(subject);
 	}
-
-	public void setTeacher(String teacher) {
-		lblTeacher.setText(teacher);
-	}
-
-	public void setHour(String hour) {
-		lblHour.setText(hour);
+	
+	public void setGroupSubjectId(int groupSubjectId){
+		this.groupSubjectId = groupSubjectId;
 	}
 
 	/**
@@ -51,13 +55,11 @@ public class GroupSubjectComponent extends javax.swing.JPanel {
                 panelRound3 = new EduManager.Components.PanelRound();
                 lblDaysOfWeek = new javax.swing.JLabel();
                 lblSubject = new javax.swing.JLabel();
-                lblTeacher = new javax.swing.JLabel();
+                lblGroup = new javax.swing.JLabel();
                 lblHour = new javax.swing.JLabel();
-                btnDelete = new EduManager.Components.MyButton();
+                btnStudentsList = new EduManager.Components.MyButton();
 
-                setBackground(new java.awt.Color(255, 255, 255));
-
-                panelRound3.setBackground(new java.awt.Color(13, 148, 136));
+                panelRound3.setBackground(new java.awt.Color(17, 94, 93));
                 panelRound3.setRoundBottomLeft(20);
                 panelRound3.setRoundBottomRight(20);
                 panelRound3.setRoundTopLeft(20);
@@ -67,67 +69,63 @@ public class GroupSubjectComponent extends javax.swing.JPanel {
                 lblDaysOfWeek.setFont(new java.awt.Font("CaskaydiaCove NF", 0, 18)); // NOI18N
                 lblDaysOfWeek.setForeground(new java.awt.Color(203, 213, 225));
                 lblDaysOfWeek.setText("Lunes Martes Miercoles Jueves Viernes");
-                panelRound3.add(lblDaysOfWeek, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 80, -1, -1));
+                panelRound3.add(lblDaysOfWeek, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 80, -1, -1));
 
                 lblSubject.setFont(new java.awt.Font("CaskaydiaCove NF", 0, 18)); // NOI18N
                 lblSubject.setForeground(new java.awt.Color(255, 255, 255));
                 lblSubject.setText("Matematicas Discretas");
                 panelRound3.add(lblSubject, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
 
-                lblTeacher.setFont(new java.awt.Font("CaskaydiaCove NF", 0, 18)); // NOI18N
-                lblTeacher.setForeground(new java.awt.Color(19, 78, 77));
-                lblTeacher.setText("Arturo Armando Sorroza");
-                panelRound3.add(lblTeacher, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, 40));
+                lblGroup.setFont(new java.awt.Font("CaskaydiaCove NF", 0, 18)); // NOI18N
+                lblGroup.setForeground(new java.awt.Color(13, 148, 136));
+                lblGroup.setText("GRUPO 4SA");
+                panelRound3.add(lblGroup, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, 40));
 
                 lblHour.setFont(new java.awt.Font("CaskaydiaCove NF", 0, 18)); // NOI18N
                 lblHour.setForeground(new java.awt.Color(255, 255, 255));
                 lblHour.setText("10:00-11:00");
                 panelRound3.add(lblHour, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 40));
 
-                btnDelete.setBackground(new java.awt.Color(225, 29, 72));
-                btnDelete.setText("Eliminar");
-                btnDelete.addActionListener(new java.awt.event.ActionListener() {
+                btnStudentsList.setBackground(new java.awt.Color(255, 255, 255));
+                btnStudentsList.setForeground(new java.awt.Color(102, 102, 102));
+                btnStudentsList.setText("Ver");
+                btnStudentsList.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                btnDeleteActionPerformed(evt);
+                                btnStudentsListActionPerformed(evt);
                         }
                 });
-                panelRound3.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 10, 100, 50));
+                panelRound3.add(btnStudentsList, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 20, 180, 40));
 
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
                 this.setLayout(layout);
                 layout.setHorizontalGroup(
                         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addComponent(panelRound3, javax.swing.GroupLayout.PREFERRED_SIZE, 1297, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(panelRound3, javax.swing.GroupLayout.DEFAULT_SIZE, 1334, Short.MAX_VALUE)
                 );
                 layout.setVerticalGroup(
                         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(panelRound3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(panelRound3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 );
         }// </editor-fold>//GEN-END:initComponents
 
-        private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-		// TODO add your handling code here:
-		JPanel parent = (JPanel) this.getParent();
-		enrollment.setGroupSubjectId(groupSubjectId);
-		enrollment.setStudentId(studentId);
-		if (enrollmentController.deleteEnrollment(enrollment)) {
-			parent.remove(this);
-			parent.revalidate();
-			parent.repaint();
-		}
-        }//GEN-LAST:event_btnDeleteActionPerformed
+        private void btnStudentsListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStudentsListActionPerformed
+                // TODO add your handling code here:
+		
+		StudentsList studentsList = new StudentsList();
+		studentsList.setGroupSubjectId(groupSubjectId);
+		studentsList.setGroup(lblGroup.getText());
+		studentsList.setSubject(lblSubject.getText());
+		studentsList.fillGroupsList();
+		studentsList.setVisible(true);
+        }//GEN-LAST:event_btnStudentsListActionPerformed
 
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
-        private EduManager.Components.MyButton btnDelete;
+        private EduManager.Components.MyButton btnStudentsList;
         private javax.swing.JLabel lblDaysOfWeek;
+        private javax.swing.JLabel lblGroup;
         private javax.swing.JLabel lblHour;
         private javax.swing.JLabel lblSubject;
-        private javax.swing.JLabel lblTeacher;
         private EduManager.Components.PanelRound panelRound3;
         // End of variables declaration//GEN-END:variables
 }
