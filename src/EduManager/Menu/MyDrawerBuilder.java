@@ -22,7 +22,6 @@ import raven.drawer.component.menu.data.Item;
 import raven.drawer.component.menu.data.MenuItem;
 import EduManager.Forms.ActionsForm;
 import EduManager.Forms.ProfileForm;
-import EduManager.Forms.SupportForm;
 import raven.swing.AvatarIcon;
 import EduManager.Controllers.UserController;
 import EduManager.Entities.Coordinator;
@@ -84,11 +83,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
             new Item.Label("MAIN"),
             new Item("Actions", "dashboard.svg"),
             new Item.Label("CUENTA"),
-            new Item("Configuracion", "ui.svg")
-            .subMenu("Editar"),
-            new Item("Calendar", "calendar.svg"),
-            new Item.Label("OTROS"),
-	    new Item("SOPORTE", "chat.svg"),
+            new Item("Configuraciones", "ui.svg"),
         };
 
         SimpleMenuOption simpleMenuOption = new SimpleMenuOption() {
@@ -128,24 +123,17 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
             public void selected(MenuAction action, int[] index) {
                 if (index.length == 1) {
                     if (index[0] == 0) {
-			
-			if(UserController.getUser() instanceof Student){
-				FormManager.showForm(new StudentForm());
-			} else if (UserController.getUser() instanceof Coordinator){
-				FormManager.showForm(new CoordinatorForm());
-			} else if (UserController.getUser() instanceof Teacher) {
-				FormManager.showForm(new TeacherForm());
-			} else {
-				FormManager.showForm(new ActionsForm());
-			}
-                    }
-                } else if (index.length == 2) {
-                    if (index[0] == 1) {
-                        if (index[1] == 0) {
-                            FormManager.showForm(new ProfileForm());
-                        } else if (index[1] == 1) {
-                            FormManager.showForm(new SupportForm());
+                        if(UserController.getUser() instanceof Student){
+                            FormManager.showForm(new StudentForm());
+                        } else if (UserController.getUser() instanceof Coordinator){
+                            FormManager.showForm(new CoordinatorForm());
+                        } else if (UserController.getUser() instanceof Teacher) {
+                            FormManager.showForm(new TeacherForm());
+                        } else {
+                            FormManager.showForm(new ActionsForm());
                         }
+                    } else if (index[0] == 1) {
+                        FormManager.showForm(new ProfileForm());
                     }
                 }
             }
