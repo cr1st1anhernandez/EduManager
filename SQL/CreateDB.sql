@@ -64,6 +64,7 @@ CREATE TABLE GroupSubject (
     endTime TIME NOT NULL,
     teacherId INT NOT NULL,
     daysOfWeek VARCHAR(7) NOT NULL,
+    capacity INT NOT NULL,
     PRIMARY KEY (groupSubjectId),
     FOREIGN KEY (groupId) REFERENCES `Group`(groupId),
     FOREIGN KEY (subjectId) REFERENCES Subject(subjectId),
@@ -86,5 +87,6 @@ CREATE TABLE Enrollment (
     groupSubjectId INT NOT NULL,
     PRIMARY KEY (enrollmentId),
     FOREIGN KEY (studentId) REFERENCES Student(studentId),
-    FOREIGN KEY (groupSubjectId) REFERENCES GroupSubject(groupSubjectId)
+    FOREIGN KEY (groupSubjectId) REFERENCES GroupSubject(groupSubjectId),
+    UNIQUE (studentId, groupSubjectId)
 );
