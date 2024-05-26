@@ -6,6 +6,7 @@ package EduManager.Utils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Properties;
 
 public class Utilities {
 
