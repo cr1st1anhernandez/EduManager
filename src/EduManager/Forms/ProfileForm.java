@@ -1,57 +1,68 @@
 package EduManager.Forms;
 
+import EduManager.Components.ChangePasswordComponent;
+import EduManager.Application.Application;
 import EduManager.Components.SimpleForm;
 import EduManager.Controllers.UserController;
 import EduManager.Entities.Coordinator;
 import EduManager.Entities.Student;
 import EduManager.Entities.Teacher;
 import EduManager.Entities.User;
+import EduManager.Menu.FormManager;
+import java.awt.EventQueue;
+import javax.swing.JFrame;
+import raven.swing.AvatarIcon;
 
 /**
  *
  * @author Raven
  */
 public class ProfileForm extends SimpleForm {
-	
-    User user = UserController.getUser();
-    public ProfileForm() {
-        initComponents();
-        myLabelFirstName.setText(user.getFirstName());
-	myLabelLastName.setText(user.getLastName());
-        myLabelEmail.setText(user.getEmail());
-	myLabelPhone.setText(user.getPhoneNumber());
-        myLabelCurp.setText("NO DISPONIBLE");
-        myLabelDate.setText("NO DISPONIBLE");
-        myLabelGender.setText("NO DISPONIBLE");
-	myLabelControlNumber.setText("NO DISPONIBLE");
 
-        if (user instanceof Student) {
-            Student student = (Student) user;
-            myLabelCurp.setText(student.getCurp());
-            myLabelDate.setText(student.getBirthDate().toString());
-            myLabelGender.setText(String.valueOf(student.getGender()));
-	    myLabelControlNumber.setText(student.getUserId()+"");
-        } else if (user instanceof Teacher) {
-            Teacher teacher = (Teacher) user;
-            myLabelCurp.setText(teacher.getCurp());
-            myLabelDate.setText(teacher.getBirthDate().toString());
-            myLabelGender.setText(String.valueOf(teacher.getGender()));
-	    myLabelControlNumber.setText(teacher.getUserId()+"");
-        } else if (user instanceof Coordinator) {
-            Coordinator coordinator = (Coordinator) user;
-            myLabelCurp.setText(coordinator.getCurp());
-            myLabelDate.setText(coordinator.getBirthDate().toString());
-            myLabelGender.setText(String.valueOf(coordinator.getGender()));
-	    myLabelControlNumber.setText(coordinator.getUserId()+"");
-        } 
-    }
+	User user = UserController.getUser();
 
-    @SuppressWarnings("unchecked")
+	public ProfileForm() {
+		initComponents();
+
+		AvatarIcon icon = new AvatarIcon(getClass().getResource("/EduManager/Images/profile.png"), 75, 75, 999);
+		icon.setBorder(2);
+		lblProfileImage.setIcon(icon);
+
+		myLabelFirstName.setText(user.getFirstName());
+		myLabelLastName.setText(user.getLastName());
+		myLabelEmail.setText(user.getEmail());
+		myLabelPhone.setText(user.getPhoneNumber());
+		myLabelCurp.setText("NO DISPONIBLE");
+		myLabelDate.setText("NO DISPONIBLE");
+		myLabelGender.setText("NO DISPONIBLE");
+		myLabelControlNumber.setText("NO DISPONIBLE");
+
+		if (user instanceof Student) {
+			Student student = (Student) user;
+			myLabelCurp.setText(student.getCurp());
+			myLabelDate.setText(student.getBirthDate().toString());
+			myLabelGender.setText(String.valueOf(student.getGender()));
+			myLabelControlNumber.setText(student.getUserId() + "");
+		} else if (user instanceof Teacher) {
+			Teacher teacher = (Teacher) user;
+			myLabelCurp.setText(teacher.getCurp());
+			myLabelDate.setText(teacher.getBirthDate().toString());
+			myLabelGender.setText(String.valueOf(teacher.getGender()));
+			myLabelControlNumber.setText(teacher.getUserId() + "");
+		} else if (user instanceof Coordinator) {
+			Coordinator coordinator = (Coordinator) user;
+			myLabelCurp.setText(coordinator.getCurp());
+			myLabelDate.setText(coordinator.getBirthDate().toString());
+			myLabelGender.setText(String.valueOf(coordinator.getGender()));
+			myLabelControlNumber.setText(coordinator.getUserId() + "");
+		}
+	}
+
+	@SuppressWarnings("unchecked")
         // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
         private void initComponents() {
 
                 jPanel1 = new javax.swing.JPanel();
-                jLabel1 = new javax.swing.JLabel();
                 panelRound1 = new EduManager.Components.PanelRound();
                 lblUsernameContent2 = new javax.swing.JLabel();
                 myButtonOutLine2 = new EduManager.Components.MyButtonOutLine();
@@ -62,13 +73,13 @@ public class ProfileForm extends SimpleForm {
                 myLabelFirstName = new EduManager.Components.MyLabel();
                 myLabelDate = new EduManager.Components.MyLabel();
                 myLabelGender = new EduManager.Components.MyLabel();
-                jLabel2 = new javax.swing.JLabel();
                 lblUsername11 = new javax.swing.JLabel();
                 myLabelLastName = new EduManager.Components.MyLabel();
+                lblProfileImage = new javax.swing.JLabel();
                 panelRound3 = new EduManager.Components.PanelRound();
                 lblUsernameContent3 = new javax.swing.JLabel();
                 lblUsername7 = new javax.swing.JLabel();
-                myButtonOutLine3 = new EduManager.Components.MyButtonOutLine();
+                btnChangePassword = new EduManager.Components.MyButton();
                 panelRound4 = new EduManager.Components.PanelRound();
                 lblUsernameContent4 = new javax.swing.JLabel();
                 lblUsername3 = new javax.swing.JLabel();
@@ -79,17 +90,16 @@ public class ProfileForm extends SimpleForm {
                 lblUsername8 = new javax.swing.JLabel();
                 lblUsername4 = new javax.swing.JLabel();
                 myLabelCurp = new EduManager.Components.MyLabel();
+                panelRound5 = new EduManager.Components.PanelRound();
+                lblWelcome = new javax.swing.JLabel();
+                jLabel3 = new javax.swing.JLabel();
+                myButton1 = new EduManager.Components.MyButton();
 
                 setForeground(new java.awt.Color(246, 246, 246));
                 setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-                jPanel1.setBackground(new java.awt.Color(246, 246, 246));
+                jPanel1.setBackground(new java.awt.Color(234, 244, 242));
                 jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-                jLabel1.setFont(new java.awt.Font("CaskaydiaCove NF", 0, 48)); // NOI18N
-                jLabel1.setForeground(new java.awt.Color(6, 6, 6));
-                jLabel1.setText("Configuraciones del Perfil");
-                jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 730, 50));
 
                 panelRound1.setBackground(new java.awt.Color(255, 255, 255));
                 panelRound1.setRoundBottomLeft(20);
@@ -126,17 +136,17 @@ public class ProfileForm extends SimpleForm {
                 panelRound1.add(myLabelDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 570, -1));
                 panelRound1.add(myLabelGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 510, 570, -1));
 
-                jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/EduManager/Images/user.png"))); // NOI18N
-                panelRound1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 80, 70));
-
                 lblUsername11.setFont(new java.awt.Font("CaskaydiaCove NF", 0, 18)); // NOI18N
                 lblUsername11.setText("Apellido");
                 panelRound1.add(lblUsername11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 130, -1));
                 panelRound1.add(myLabelLastName, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 570, -1));
 
-                jPanel1.add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 690, 590));
+                lblProfileImage.setPreferredSize(new java.awt.Dimension(75, 75));
+                panelRound1.add(lblProfileImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, -1));
 
-                panelRound3.setBackground(new java.awt.Color(255, 255, 255));
+                jPanel1.add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 690, 590));
+
+                panelRound3.setBackground(new java.awt.Color(13, 148, 136));
                 panelRound3.setMinimumSize(new java.awt.Dimension(80, 80));
                 panelRound3.setRoundBottomLeft(20);
                 panelRound3.setRoundBottomRight(20);
@@ -144,14 +154,21 @@ public class ProfileForm extends SimpleForm {
                 panelRound3.setRoundTopRight(20);
 
                 lblUsernameContent3.setFont(new java.awt.Font("CaskaydiaCove NF", 0, 24)); // NOI18N
-                lblUsernameContent3.setForeground(new java.awt.Color(111, 111, 129));
+                lblUsernameContent3.setForeground(new java.awt.Color(255, 255, 255));
                 lblUsernameContent3.setText("Cambiar Contraseña");
 
                 lblUsername7.setFont(new java.awt.Font("CaskaydiaCove NF", 0, 18)); // NOI18N
-                lblUsername7.setForeground(new java.awt.Color(170, 171, 184));
+                lblUsername7.setForeground(new java.awt.Color(255, 255, 255));
                 lblUsername7.setText("Tu Contraseña Solo podra ser moficada maximo 3 veces");
 
-                myButtonOutLine3.setText("Cambiar Contraseña");
+                btnChangePassword.setBackground(new java.awt.Color(255, 255, 255));
+                btnChangePassword.setForeground(new java.awt.Color(102, 102, 102));
+                btnChangePassword.setText("Cambiar");
+                btnChangePassword.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                btnChangePasswordActionPerformed(evt);
+                        }
+                });
 
                 javax.swing.GroupLayout panelRound3Layout = new javax.swing.GroupLayout(panelRound3);
                 panelRound3.setLayout(panelRound3Layout);
@@ -162,8 +179,8 @@ public class ProfileForm extends SimpleForm {
                                 .addGroup(panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(lblUsername7, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(lblUsernameContent3)
-                                        .addComponent(myButtonOutLine3, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(19, Short.MAX_VALUE))
+                                        .addComponent(btnChangePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 815, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(24, Short.MAX_VALUE))
                 );
                 panelRound3Layout.setVerticalGroup(
                         panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,12 +189,12 @@ public class ProfileForm extends SimpleForm {
                                 .addComponent(lblUsernameContent3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lblUsername7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                                .addComponent(myButtonOutLine3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(31, 31, 31))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                                .addComponent(btnChangePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(19, 19, 19))
                 );
 
-                jPanel1.add(panelRound3, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 150, 860, 190));
+                jPanel1.add(panelRound3, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 350, 860, 190));
 
                 panelRound4.setBackground(new java.awt.Color(255, 255, 255));
                 panelRound4.setMinimumSize(new java.awt.Dimension(80, 80));
@@ -212,15 +229,85 @@ public class ProfileForm extends SimpleForm {
                 panelRound4.add(lblUsername4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 580, -1));
                 panelRound4.add(myLabelCurp, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 810, -1));
 
-                jPanel1.add(panelRound4, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 370, 860, 370));
+                jPanel1.add(panelRound4, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 570, 860, 370));
 
-                add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1660, 880));
+                panelRound5.setBackground(new java.awt.Color(13, 148, 136));
+                panelRound5.setRoundBottomLeft(30);
+                panelRound5.setRoundBottomRight(30);
+                panelRound5.setRoundTopLeft(30);
+                panelRound5.setRoundTopRight(30);
+
+                lblWelcome.setFont(new java.awt.Font("CaskaydiaCove NF", 1, 48)); // NOI18N
+                lblWelcome.setForeground(new java.awt.Color(255, 255, 255));
+                lblWelcome.setText("Configuraciones del perfil");
+
+                jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/EduManager/Images/settings.png"))); // NOI18N
+
+                myButton1.setBackground(new java.awt.Color(255, 255, 255));
+                myButton1.setForeground(new java.awt.Color(102, 102, 102));
+                myButton1.setText("Volver al panel de Acciones");
+                myButton1.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                myButton1ActionPerformed(evt);
+                        }
+                });
+
+                javax.swing.GroupLayout panelRound5Layout = new javax.swing.GroupLayout(panelRound5);
+                panelRound5.setLayout(panelRound5Layout);
+                panelRound5Layout.setHorizontalGroup(
+                        panelRound5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelRound5Layout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addGroup(panelRound5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lblWelcome)
+                                        .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 561, Short.MAX_VALUE)
+                                .addComponent(jLabel3)
+                                .addGap(25, 25, 25))
+                );
+                panelRound5Layout.setVerticalGroup(
+                        panelRound5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound5Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(panelRound5Layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(lblWelcome)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(25, 25, 25))
+                );
+
+                jPanel1.add(panelRound5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 1590, 250));
+
+                add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1850, 1000));
         }// </editor-fold>//GEN-END:initComponents
 
+        private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
+                // TODO add your handling code here:
+		ChangePasswordComponent changePasswordFrame = new ChangePasswordComponent();
+		changePasswordFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		changePasswordFrame.setVisible(true);
+        }//GEN-LAST:event_btnChangePasswordActionPerformed
+
+        private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
+                // TODO add your handling code here:
+                
+		if (user instanceof Student) {
+			FormManager.showForm(new StudentForm());
+		} else if (user instanceof Teacher) {
+			FormManager.showForm(new TeacherForm());
+		} else if (user instanceof Coordinator) {
+			FormManager.showForm(new CoordinatorForm());
+		}
+		
+        }//GEN-LAST:event_myButton1ActionPerformed
+
         // Variables declaration - do not modify//GEN-BEGIN:variables
-        private javax.swing.JLabel jLabel1;
-        private javax.swing.JLabel jLabel2;
+        private EduManager.Components.MyButton btnChangePassword;
+        private javax.swing.JLabel jLabel3;
         private javax.swing.JPanel jPanel1;
+        private javax.swing.JLabel lblProfileImage;
         private javax.swing.JLabel lblUsername;
         private javax.swing.JLabel lblUsername10;
         private javax.swing.JLabel lblUsername11;
@@ -234,8 +321,9 @@ public class ProfileForm extends SimpleForm {
         private javax.swing.JLabel lblUsernameContent2;
         private javax.swing.JLabel lblUsernameContent3;
         private javax.swing.JLabel lblUsernameContent4;
+        private javax.swing.JLabel lblWelcome;
+        private EduManager.Components.MyButton myButton1;
         private EduManager.Components.MyButtonOutLine myButtonOutLine2;
-        private EduManager.Components.MyButtonOutLine myButtonOutLine3;
         private EduManager.Components.MyLabel myLabelControlNumber;
         private EduManager.Components.MyLabel myLabelCurp;
         private EduManager.Components.MyLabel myLabelDate;
@@ -247,5 +335,6 @@ public class ProfileForm extends SimpleForm {
         private EduManager.Components.PanelRound panelRound1;
         private EduManager.Components.PanelRound panelRound3;
         private EduManager.Components.PanelRound panelRound4;
+        private EduManager.Components.PanelRound panelRound5;
         // End of variables declaration//GEN-END:variables
 }
