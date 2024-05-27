@@ -80,12 +80,17 @@ public class StudentForm extends SimpleForm {
 	private void fillComboBoxBySemester(int semester) {
 		List<GroupSubject> groupSubjects = groupSubjectController.getGroupsBySemester(semester);
 		combobox2.removeAllItems();
+		String vacancies="";
 		for (GroupSubject groupSubject : groupSubjects) {
+			if(groupSubject.getVacancies()==0){
+				vacancies=" GRUPO NO DISPONIBLE";
+			}
 			String item = groupSubject.getSubjectName() + " [" + groupSubject.getStartTime() + "-"
 				+ groupSubject.getEndTime() + "] " + groupSubject.getTeacherName()
-				+ " Cupo:" + groupSubject.getCapacity() + " Id:"
-				+ groupSubject.getGroupSubjectId() + " Dias:" + groupSubject.getDaysOfWeek();
+				+ " Vacantes:" + groupSubject.getVacancies() + " Id:"
+				+ groupSubject.getGroupSubjectId() + " Dias:" + groupSubject.getDaysOfWeek() + vacancies;
 			ComboBoxItem comboBoxItem = new ComboBoxItem(groupSubject.getGroupSubjectId(), item);
+			vacancies="";
 			combobox2.addItem(comboBoxItem);
 		}
 	}
@@ -93,13 +98,18 @@ public class StudentForm extends SimpleForm {
 	private void fillComboBoxBySemesterAndTime(int semester, String time) {
 		List<GroupSubject> groupSubjects = groupSubjectController.getGroupsBySemesterAndTime(semester, time);
 		combobox2.removeAllItems();
+		String vacancies="";
 		for (GroupSubject groupSubject : groupSubjects) {
+			if(groupSubject.getVacancies()==0){
+				vacancies=" GRUPO NO DISPONIBLE";
+			}
 			String item = groupSubject.getSubjectName() + " [" + groupSubject.getStartTime() + "-"
 				+ groupSubject.getEndTime() + "] " + groupSubject.getTeacherName()
-				+ " Cupo:" + groupSubject.getCapacity() + " Id:"
+				+ " Vacantes:" + groupSubject.getVacancies() + " Id:"
 				+ groupSubject.getGroupSubjectId() + " Dias:"
-				+ groupSubject.getFullDaysOfWeek();
+				+ groupSubject.getDaysOfWeek() + vacancies;
 			ComboBoxItem comboBoxItem = new ComboBoxItem(groupSubject.getGroupSubjectId(), item);
+			vacancies="";
 			combobox2.addItem(comboBoxItem);
 		}
 	}

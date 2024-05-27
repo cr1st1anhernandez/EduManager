@@ -30,6 +30,10 @@ public class StudentsList extends javax.swing.JFrame {
 		this.enrollments = enrollments;
 	}
 	
+	public void setNumberOfStudents(int numberStudents){
+		lblNumberStudents.setText(numberStudents + " estudiantes");
+	}
+	
 	public void setGroupSubjectId(int groupSubjectId){
 		this.groupSubjectId = groupSubjectId;
 	}
@@ -214,7 +218,6 @@ public class StudentsList extends javax.swing.JFrame {
                 panelRound5.add(lblSubject, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
 
                 jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/EduManager/Images/college.png"))); // NOI18N
-                jLabel1.setPreferredSize(new java.awt.Dimension(125, 125));
                 panelRound5.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1660, 10, 130, 90));
 
                 javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

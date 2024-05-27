@@ -17,38 +17,40 @@ public class EnrollmentController {
 
 	ErrorComponent errorComponent = new ErrorComponent();
 	SuccessComponent successComponent = new SuccessComponent();
+	GroupSubjectController groupSubjectController = new GroupSubjectController();
 
 	public List<Enrollment> getEnrollmentsByStudentId(int studentId) {
 		List<Enrollment> allEnrollments = getEnrollments();
-
-		List<Enrollment> filteredEnrollments = allEnrollments.stream()
-			.filter(enrollment -> enrollment.getStudentId() == studentId)
-			.collect(Collectors.toList());
-
-		return filteredEnrollments;
+		return allEnrollments.stream()
+				.filter(enrollment -> enrollment.getStudentId() == studentId)
+				.collect(Collectors.toList());
 	}
 
 	public List<Enrollment> getEnrollmentsByGroupSubjectId(int groupSubjectId) {
 		List<Enrollment> allEnrollments = getEnrollments();
-
-		List<Enrollment> filteredEnrollments = allEnrollments.stream()
-			.filter(enrollment -> enrollment.getGroupSubjectId() == groupSubjectId)
-			.collect(Collectors.toList());
-
-		return filteredEnrollments;
+		return allEnrollments.stream()
+				.filter(enrollment -> enrollment.getGroupSubjectId() == groupSubjectId)
+				.collect(Collectors.toList());
 	}
 
 	public boolean addEnrollment(Enrollment enrollment) {
 		try {
 			DatabaseAccess.connect();
-			if (getEnrollments().stream().filter(e -> e.getStudentId() == enrollment.getStudentId()).count() >= 6) {
+			int currentVacancies = groupSubjectController.getVacancies(enrollment.getGroupSubjectId());
+			if (currentVacancies <= 0) {
+				errorComponent.setText("El grupo está lleno y no tiene cupo disponible");
+				Notifications.getInstance().show(Notifications.Location.BOTTOM_RIGHT, errorComponent);
+				return false;
+			}
+
+			if (getEnrollmentsByStudentId(enrollment.getStudentId()).size() >= 6) {
 				errorComponent.setText("Un estudiante solo puede estar matriculado en un máximo de 6 materias");
 				Notifications.getInstance().show(Notifications.Location.BOTTOM_RIGHT, errorComponent);
 				return false;
 			}
 
-			if (getEnrollments().stream().anyMatch(e -> e.getStudentId() == enrollment.getStudentId()
-				&& e.getGroupSubjectId() == enrollment.getGroupSubjectId())) {
+			if (getEnrollmentsByGroupSubjectId(enrollment.getGroupSubjectId()).stream()
+					.anyMatch(e -> e.getStudentId() == enrollment.getStudentId())) {
 				errorComponent.setText("El estudiante ya está matriculado en esta materia");
 				Notifications.getInstance().show(Notifications.Location.BOTTOM_RIGHT, errorComponent);
 				return false;
@@ -60,9 +62,13 @@ public class EnrollmentController {
 			preparedStatement.setInt(2, enrollment.getGroupSubjectId());
 
 			int rowsAffected = preparedStatement.executeUpdate();
-			successComponent.setText("Estudiante matriculado con exito");
-			Notifications.getInstance().show(Notifications.Location.BOTTOM_RIGHT, successComponent);
-			return rowsAffected > 0;
+			if (rowsAffected > 0) {
+				groupSubjectController.updateVacancies(enrollment.getGroupSubjectId(), -1);
+				successComponent.setText("Estudiante matriculado con éxito");
+				Notifications.getInstance().show(Notifications.Location.BOTTOM_RIGHT, successComponent);
+				return true;
+			}
+			return false;
 		} catch (SQLException e) {
 			errorComponent.setText("Error en la base de datos");
 			Notifications.getInstance().show(Notifications.Location.BOTTOM_RIGHT, errorComponent);
@@ -88,6 +94,8 @@ public class EnrollmentController {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			DatabaseAccess.closeConnection();
 		}
 		return enrollments;
 	}
@@ -101,15 +109,20 @@ public class EnrollmentController {
 			preparedStatement.setInt(2, enrollment.getGroupSubjectId());
 
 			int rowsAffected = preparedStatement.executeUpdate();
-			successComponent.setText("Estudiante eliminado del grupo con exito");
-			Notifications.getInstance().show(Notifications.Location.BOTTOM_RIGHT, successComponent);
-			return rowsAffected > 0;
+			if (rowsAffected > 0) {
+				groupSubjectController.updateVacancies(enrollment.getGroupSubjectId(), 1);
+				successComponent.setText("Estudiante eliminado del grupo con éxito");
+				Notifications.getInstance().show(Notifications.Location.BOTTOM_RIGHT, successComponent);
+				return true;
+			}
+			return false;
 		} catch (SQLException e) {
 			errorComponent.setText("Error en la base de datos");
 			Notifications.getInstance().show(Notifications.Location.BOTTOM_RIGHT, errorComponent);
 			e.printStackTrace();
 			return false;
+		} finally {
+			DatabaseAccess.closeConnection();
 		}
 	}
-
 }

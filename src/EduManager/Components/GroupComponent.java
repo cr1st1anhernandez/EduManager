@@ -5,6 +5,7 @@
 package EduManager.Components;
 
 import EduManager.Controllers.EnrollmentController;
+import EduManager.Controllers.GroupSubjectController;
 import EduManager.Entities.Enrollment;
 import java.util.List;
 import javax.swing.JFrame;
@@ -112,10 +113,14 @@ public class GroupComponent extends javax.swing.JPanel {
                 // TODO add your handling code here:
 		
 		StudentsList studentsList = new StudentsList();
+		GroupSubjectController groupSubjectController = new GroupSubjectController();
+		int capacity = groupSubjectController.getGroupSubjectById(groupSubjectId).getCapacity();
+		int vacancies = groupSubjectController.getGroupSubjectById(groupSubjectId).getVacancies();
 		studentsList.setGroupSubjectId(groupSubjectId);
 		studentsList.setGroup(lblGroup.getText());
 		studentsList.setSubject(lblSubject.getText());
 		studentsList.fillGroupsList();
+		studentsList.setNumberOfStudents(capacity - vacancies);
 		studentsList.setVisible(true);
         }//GEN-LAST:event_btnStudentsListActionPerformed
 

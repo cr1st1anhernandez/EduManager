@@ -65,6 +65,7 @@ CREATE TABLE GroupSubject (
     teacherId INT NOT NULL,
     daysOfWeek VARCHAR(7) NOT NULL,
     capacity INT NOT NULL,
+    vacancies INT NOT NULL,
     PRIMARY KEY (groupSubjectId),
     FOREIGN KEY (groupId) REFERENCES `Group`(groupId),
     FOREIGN KEY (subjectId) REFERENCES Subject(subjectId),

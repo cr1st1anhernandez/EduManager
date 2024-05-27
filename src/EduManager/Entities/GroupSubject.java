@@ -21,4 +21,5 @@ public class GroupSubject {
     private String daysOfWeek;
     private String fullDaysOfWeek;
     private int capacity;
+    private int vacancies;
 }

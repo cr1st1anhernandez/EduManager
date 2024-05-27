@@ -46,8 +46,8 @@ public class GroupSubjectController {
         groupSubjects = new ArrayList<>();
         try {
             DatabaseAccess.connect();
-            String query = "SELECT gs.groupSubjectId ,gs.groupId, gs.subjectId, s.name AS subjectName, gs.startTime, gs.endTime, gs.teacherId, "
-                    + "CONCAT(t.firstName, ' ', t.lastName) AS teacherName, gs.daysOfWeek, gs.capacity "
+            String query = "SELECT gs.groupSubjectId, gs.groupId, gs.subjectId, s.name AS subjectName, gs.startTime, gs.endTime, gs.teacherId, "
+                    + "CONCAT(t.firstName, ' ', t.lastName) AS teacherName, gs.daysOfWeek, gs.vacancies, gs.capacity "
                     + "FROM GroupSubject gs "
                     + "JOIN Subject s ON gs.subjectId = s.subjectId "
                     + "JOIN Teacher t ON gs.teacherId = t.teacherId";
@@ -65,6 +65,7 @@ public class GroupSubjectController {
                 groupSubject.setTeacherId(resultSet.getInt("teacherId"));
                 groupSubject.setTeacherName(resultSet.getString("teacherName"));
                 groupSubject.setDaysOfWeek(resultSet.getString("daysOfWeek"));
+                groupSubject.setVacancies(resultSet.getInt("vacancies"));
                 groupSubject.setCapacity(resultSet.getInt("capacity"));
                 groupSubject.setFullDaysOfWeek(convertDaysOfWeek(resultSet.getString("daysOfWeek")));
                 groupSubjects.add(groupSubject);
@@ -85,7 +86,6 @@ public class GroupSubjectController {
     }
 
     public List<GroupSubject> getGroupsBySemesterAndTime(int semester, String time) {
-
         LocalTime specifiedTime = LocalTime.parse(time);
         String semesterPrefix = semester + "";
         return getGroupsSubjects().stream()
@@ -107,5 +107,42 @@ public class GroupSubjectController {
         return getGroupsSubjects().stream()
                 .filter(gs -> gs.getTeacherId() == teacherId)
                 .collect(Collectors.toList());
+    }
+
+    public boolean updateVacancies(int groupSubjectId, int vacanciesChange) {
+        try {
+            DatabaseAccess.connect();
+            String query = "UPDATE GroupSubject SET vacancies = vacancies + ? WHERE groupSubjectId = ?";
+            PreparedStatement preparedStatement = DatabaseAccess.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1, vacanciesChange);
+            preparedStatement.setInt(2, groupSubjectId);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            DatabaseAccess.closeConnection();
+        }
+    }
+
+    public int getVacancies(int groupSubjectId) {
+        try {
+            DatabaseAccess.connect();
+            String query = "SELECT vacancies FROM GroupSubject WHERE groupSubjectId = ?";
+            PreparedStatement preparedStatement = DatabaseAccess.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1, groupSubjectId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("vacancies");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseAccess.closeConnection();
+        }
+        return -1;
     }
 }
