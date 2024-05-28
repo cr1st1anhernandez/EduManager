@@ -20,12 +20,13 @@ import raven.drawer.component.menu.SimpleMenuOption;
 import raven.drawer.component.menu.SimpleMenuStyle;
 import raven.drawer.component.menu.data.Item;
 import raven.drawer.component.menu.data.MenuItem;
-import EduManager.Forms.ActionsForm;
 import EduManager.Forms.ProfileForm;
 import raven.swing.AvatarIcon;
 import EduManager.Controllers.UserController;
+import EduManager.Entities.Admin;
 import EduManager.Entities.Coordinator;
 import EduManager.Entities.Teacher;
+import EduManager.Forms.AdminForm;
 import EduManager.Forms.CoordinatorForm;
 import EduManager.Forms.StudentForm;
 import EduManager.Forms.TeacherForm;
@@ -129,8 +130,8 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
                             FormManager.showForm(new CoordinatorForm());
                         } else if (UserController.getUser() instanceof Teacher) {
                             FormManager.showForm(new TeacherForm());
-                        } else {
-                            FormManager.showForm(new ActionsForm());
+                        } else if (UserController.getUser() instanceof Admin) {
+                            FormManager.showForm(new AdminForm());
                         }
                     } else if (index[0] == 1) {
                         FormManager.showForm(new ProfileForm());

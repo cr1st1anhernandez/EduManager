@@ -7,10 +7,11 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import EduManager.Components.Background;
 import EduManager.Controllers.UserController;
+import EduManager.Entities.Admin;
 import EduManager.Entities.Coordinator;
 import EduManager.Entities.Student;
 import EduManager.Entities.Teacher;
-import EduManager.Forms.ActionsForm;
+import EduManager.Forms.AdminForm;
 import EduManager.Forms.CoordinatorForm;
 import EduManager.Forms.StudentForm;
 import EduManager.Forms.TeacherForm;
@@ -44,8 +45,8 @@ public class Application extends JFrame {
 			FormManager.showForm(new CoordinatorForm());
 		} else if (UserController.getUser() instanceof Teacher) {
 			FormManager.showForm(new TeacherForm());
-		} else {
-			FormManager.showForm(new ActionsForm());
+		} else if (UserController.getUser() instanceof Admin){
+			FormManager.showForm(new AdminForm());
 		}
 	}
 }
