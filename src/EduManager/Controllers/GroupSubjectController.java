@@ -72,9 +72,7 @@ public class GroupSubjectController {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            DatabaseAccess.closeConnection();
-        }
+        } 
         return groupSubjects;
     }
 
@@ -122,9 +120,7 @@ public class GroupSubjectController {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
-        } finally {
-            DatabaseAccess.closeConnection();
-        }
+        } 
     }
 
     public int getVacancies(int groupSubjectId) {
@@ -140,9 +136,7 @@ public class GroupSubjectController {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            DatabaseAccess.closeConnection();
-        }
+        } 
         return -1;
     }
 }

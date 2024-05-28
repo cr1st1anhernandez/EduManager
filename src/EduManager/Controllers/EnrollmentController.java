@@ -94,8 +94,6 @@ public class EnrollmentController {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			DatabaseAccess.closeConnection();
 		}
 		return enrollments;
 	}
@@ -121,8 +119,6 @@ public class EnrollmentController {
 			Notifications.getInstance().show(Notifications.Location.BOTTOM_RIGHT, errorComponent);
 			e.printStackTrace();
 			return false;
-		} finally {
-			DatabaseAccess.closeConnection();
-		}
+		} 
 	}
 }

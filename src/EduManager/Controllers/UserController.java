@@ -136,9 +136,7 @@ public class UserController {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			DatabaseAccess.closeConnection();
-		}
+		} 
 		return false;
 	}
 
@@ -192,8 +190,6 @@ public class UserController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
-		} finally {
-			DatabaseAccess.closeConnection();
-		}
+		} 
 	}
 }

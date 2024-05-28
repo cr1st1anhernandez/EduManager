@@ -30,9 +30,7 @@ public class StudentController {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            DatabaseAccess.closeConnection();
-        }
+        } 
         return student;
     }
 }
