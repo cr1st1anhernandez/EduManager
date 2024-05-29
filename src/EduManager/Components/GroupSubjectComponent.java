@@ -74,8 +74,8 @@ public class GroupSubjectComponent extends javax.swing.JPanel {
                 lblSubject.setText("Matematicas Discretas");
                 panelRound3.add(lblSubject, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
 
-                lblTeacher.setFont(new java.awt.Font("CaskaydiaCove NF", 0, 18)); // NOI18N
-                lblTeacher.setForeground(new java.awt.Color(13, 148, 136));
+                lblTeacher.setFont(new java.awt.Font("CaskaydiaCove NF", 1, 18)); // NOI18N
+                lblTeacher.setForeground(new java.awt.Color(255, 255, 255));
                 lblTeacher.setText("Arturo Armando");
                 panelRound3.add(lblTeacher, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 40));
 
@@ -91,7 +91,7 @@ public class GroupSubjectComponent extends javax.swing.JPanel {
                                 btnDeleteActionPerformed(evt);
                         }
                 });
-                panelRound3.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 410, 50));
+                panelRound3.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 410, 40));
 
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
                 this.setLayout(layout);
@@ -103,9 +103,7 @@ public class GroupSubjectComponent extends javax.swing.JPanel {
                 );
                 layout.setVerticalGroup(
                         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addComponent(panelRound3, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(panelRound3, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                 );
         }// </editor-fold>//GEN-END:initComponents
 
