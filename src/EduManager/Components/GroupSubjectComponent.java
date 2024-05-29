@@ -57,7 +57,7 @@ public class GroupSubjectComponent extends javax.swing.JPanel {
 
                 setBackground(new java.awt.Color(255, 255, 255));
 
-                panelRound3.setBackground(new java.awt.Color(13, 148, 136));
+                panelRound3.setBackground(new java.awt.Color(17, 94, 93));
                 panelRound3.setRoundBottomLeft(20);
                 panelRound3.setRoundBottomRight(20);
                 panelRound3.setRoundTopLeft(20);
@@ -67,22 +67,22 @@ public class GroupSubjectComponent extends javax.swing.JPanel {
                 lblDaysOfWeek.setFont(new java.awt.Font("CaskaydiaCove NF", 0, 18)); // NOI18N
                 lblDaysOfWeek.setForeground(new java.awt.Color(203, 213, 225));
                 lblDaysOfWeek.setText("Lunes Martes Miercoles Jueves Viernes");
-                panelRound3.add(lblDaysOfWeek, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 80, -1, -1));
+                panelRound3.add(lblDaysOfWeek, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
 
                 lblSubject.setFont(new java.awt.Font("CaskaydiaCove NF", 0, 18)); // NOI18N
                 lblSubject.setForeground(new java.awt.Color(255, 255, 255));
                 lblSubject.setText("Matematicas Discretas");
-                panelRound3.add(lblSubject, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
+                panelRound3.add(lblSubject, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
 
                 lblTeacher.setFont(new java.awt.Font("CaskaydiaCove NF", 0, 18)); // NOI18N
-                lblTeacher.setForeground(new java.awt.Color(19, 78, 77));
-                lblTeacher.setText("Arturo Armando Sorroza");
-                panelRound3.add(lblTeacher, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, 40));
+                lblTeacher.setForeground(new java.awt.Color(13, 148, 136));
+                lblTeacher.setText("Arturo Armando");
+                panelRound3.add(lblTeacher, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 40));
 
                 lblHour.setFont(new java.awt.Font("CaskaydiaCove NF", 0, 18)); // NOI18N
                 lblHour.setForeground(new java.awt.Color(255, 255, 255));
-                lblHour.setText("10:00-11:00");
-                panelRound3.add(lblHour, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 40));
+                lblHour.setText("10:00:00-11:00:00");
+                panelRound3.add(lblHour, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, -1, 20));
 
                 btnDelete.setBackground(new java.awt.Color(225, 29, 72));
                 btnDelete.setText("Eliminar");
@@ -91,20 +91,20 @@ public class GroupSubjectComponent extends javax.swing.JPanel {
                                 btnDeleteActionPerformed(evt);
                         }
                 });
-                panelRound3.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 10, 100, 50));
+                panelRound3.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 410, 50));
 
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
                 this.setLayout(layout);
                 layout.setHorizontalGroup(
                         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addComponent(panelRound3, javax.swing.GroupLayout.PREFERRED_SIZE, 1297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(panelRound3, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                 );
                 layout.setVerticalGroup(
                         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(panelRound3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(panelRound3, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                 );
         }// </editor-fold>//GEN-END:initComponents
