@@ -327,7 +327,7 @@
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="btnLogOut" min="-2" pref="473" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
-                                  <Component id="myButton2" max="32767" attributes="0"/>
+                                  <Component id="btnDownloadSchedule" max="32767" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="btnSupport" min="-2" pref="222" max="-2" attributes="0"/>
                               </Group>
@@ -345,7 +345,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnSupport" alignment="3" min="-2" pref="54" max="-2" attributes="0"/>
-                          <Component id="myButton2" alignment="3" min="-2" pref="53" max="-2" attributes="0"/>
+                          <Component id="btnDownloadSchedule" alignment="3" min="-2" pref="53" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnLogOut" min="-2" pref="54" max="-2" attributes="0"/>
@@ -355,10 +355,13 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="EduManager.Components.MyButton" name="myButton2">
+            <Component class="EduManager.Components.MyButton" name="btnDownloadSchedule">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Descargar Horario"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDownloadScheduleActionPerformed"/>
+              </Events>
             </Component>
             <Component class="EduManager.Components.MyButtonOutLine" name="btnLogOut">
               <Properties>

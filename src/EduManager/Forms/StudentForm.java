@@ -10,6 +10,7 @@ import EduManager.Components.ComboBoxItem;
 import EduManager.Components.GroupStudentComponent;
 import EduManager.Components.GroupSubjectComponent;
 import EduManager.Components.SimpleForm;
+import EduManager.Components.SuccessComponent;
 import EduManager.Controllers.EnrollmentController;
 import EduManager.Controllers.GroupSubjectController;
 import EduManager.Controllers.SubjectController;
@@ -22,7 +23,12 @@ import EduManager.Entities.Subject;
 import EduManager.Entities.Teacher;
 import EduManager.Entities.User;
 import EduManager.Menu.FormManager;
+import EduManager.Utils.PdfGenerator;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import raven.swing.AvatarIcon;
+import raven.toast.Notifications;
 
 public class StudentForm extends SimpleForm {
 
@@ -153,7 +159,7 @@ public class StudentForm extends SimpleForm {
                 panelSchedule = new javax.swing.JPanel();
                 lblName1 = new javax.swing.JLabel();
                 panelRound8 = new EduManager.Components.PanelRound();
-                myButton2 = new EduManager.Components.MyButton();
+                btnDownloadSchedule = new EduManager.Components.MyButton();
                 btnLogOut = new EduManager.Components.MyButtonOutLine();
                 btnSupport = new EduManager.Components.MyButtonOutLine();
                 lblUsernameContent4 = new javax.swing.JLabel();
@@ -303,7 +309,12 @@ public class StudentForm extends SimpleForm {
                 panelRound8.setRoundTopLeft(20);
                 panelRound8.setRoundTopRight(20);
 
-                myButton2.setText("Descargar Horario");
+                btnDownloadSchedule.setText("Descargar Horario");
+                btnDownloadSchedule.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                btnDownloadScheduleActionPerformed(evt);
+                        }
+                });
 
                 btnLogOut.setText("Cerrar Sesion");
                 btnLogOut.addActionListener(new java.awt.event.ActionListener() {
@@ -334,7 +345,7 @@ public class StudentForm extends SimpleForm {
                                         .addGroup(panelRound8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                 .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGroup(panelRound8Layout.createSequentialGroup()
-                                                        .addComponent(myButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(btnDownloadSchedule, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                         .addComponent(btnSupport, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addContainerGap(17, Short.MAX_VALUE))
@@ -347,7 +358,7 @@ public class StudentForm extends SimpleForm {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(panelRound8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(btnSupport, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(myButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(btnDownloadSchedule, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(15, 15, 15))
@@ -438,9 +449,46 @@ public class StudentForm extends SimpleForm {
 			System.out.println("Por favor seleccione un horario.");
 		}
         }//GEN-LAST:event_comboBoxHoursItemStateChanged
-	// GEN-FIRST:event_btnSearchActionPerformed
-	// TODO add your handling code here:
-	// GEN-LAST:event_btnSearchActionPerformed
+
+        private void btnDownloadScheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDownloadScheduleActionPerformed
+
+		List<Enrollment> enrollments = enrollmentController.getEnrollmentsByStudentId(student.getUserId());
+		List<GroupSubject> groupSubjects = new ArrayList<>();
+
+		for (Enrollment enrollment : enrollments) {
+			GroupSubject groupSubject = groupSubjectController.getGroupSubjectById(enrollment.getGroupSubjectId());
+			if (groupSubject != null) {
+				groupSubjects.add(groupSubject);
+			}
+		}
+
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setDialogTitle("Guardar PDF");
+		fileChooser.setFileFilter(new FileNameExtensionFilter("Archivo PDF", "pdf"));
+		fileChooser.setSelectedFile(new java.io.File("Horario_Estudiante_" + student.getFirstName() + ".pdf"));
+
+		int userSelection = fileChooser.showSaveDialog(null);
+
+		if (userSelection == JFileChooser.APPROVE_OPTION) {
+			java.io.File fileToSave = fileChooser.getSelectedFile();
+			String pdfName = fileToSave.getAbsolutePath();
+
+			if (!pdfName.toLowerCase().endsWith(".pdf")) {
+				pdfName += ".pdf";
+			}
+
+			PdfGenerator pdfGenerator = new PdfGenerator();
+			pdfGenerator.generateSchedulePDF(pdfName, groupSubjects);
+
+			SuccessComponent successComponent = new SuccessComponent();
+			successComponent.setText("PDF generado exitosamente");
+			Notifications.getInstance().show(Notifications.Location.BOTTOM_RIGHT, successComponent);
+		}
+
+        }//GEN-LAST:event_btnDownloadScheduleActionPerformed
+// GEN-FIRST:event_btnSearchActionPerformed
+// TODO add your handling code here:
+// GEN-LAST:event_btnSearchActionPerformed
 
 	private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnLogOutActionPerformed
 		// TODO add your handling code here:
@@ -466,6 +514,7 @@ public class StudentForm extends SimpleForm {
 	}// GEN-LAST:event_myButton1ActionPerformed
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
+        private EduManager.Components.MyButton btnDownloadSchedule;
         private EduManager.Components.MyButtonOutLine btnLogOut;
         private EduManager.Components.MyButtonOutLine btnSupport;
         private EduManager.Components.Combobox comboBoxHours;
@@ -484,7 +533,6 @@ public class StudentForm extends SimpleForm {
         private javax.swing.JLabel lblUsernameContent8;
         private javax.swing.JLabel lblWelcome;
         private EduManager.Components.MyButton myButton1;
-        private EduManager.Components.MyButton myButton2;
         private EduManager.Components.PanelRound panelRound1;
         private EduManager.Components.PanelRound panelRound5;
         private EduManager.Components.PanelRound panelRound6;
