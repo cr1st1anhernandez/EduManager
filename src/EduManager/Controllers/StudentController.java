@@ -30,8 +30,29 @@ public class StudentController {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } 
+        }
         return student;
     }
-}
 
+    public boolean deleteStudentById(int studentId) {
+        try {
+            DatabaseAccess.connect();
+            deleteEnrollmentsByStudentId(studentId);
+            String query = "DELETE FROM Student WHERE studentId = ?";
+            PreparedStatement preparedStatement = DatabaseAccess.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1, studentId);
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private void deleteEnrollmentsByStudentId(int studentId) throws SQLException {
+        String query = "DELETE FROM Enrollment WHERE studentId = ?";
+        PreparedStatement preparedStatement = DatabaseAccess.getConnection().prepareStatement(query);
+        preparedStatement.setInt(1, studentId);
+        preparedStatement.executeUpdate();
+    }
+}
