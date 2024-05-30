@@ -27,6 +27,7 @@ public class StudentController {
                 student.setSemester(resultSet.getInt("semester"));
                 student.setEmail(resultSet.getString("email"));
                 student.setPhoneNumber(resultSet.getString("phoneNumber"));
+                student.setImagePath(resultSet.getString("imagePath"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

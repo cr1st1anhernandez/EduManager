@@ -51,6 +51,7 @@ public class StudentsList extends javax.swing.JFrame {
 			studentComponent.setPhoneNumber(student.getPhoneNumber());
 			studentComponent.setSemester(student.getSemester());
 			studentComponent.setStudentId(student.getUserId());
+			studentComponent.setStudentImagePath(student.getImagePath());
 			panelGroups.add(studentComponent);
 		}
 		
@@ -87,7 +88,6 @@ public class StudentsList extends javax.swing.JFrame {
                 lblName4 = new javax.swing.JLabel();
                 lblName5 = new javax.swing.JLabel();
                 lblName6 = new javax.swing.JLabel();
-                lblName7 = new javax.swing.JLabel();
                 jSeparator1 = new javax.swing.JSeparator();
                 panelRound5 = new EduManager.Components.PanelRound();
                 lblGroupName = new javax.swing.JLabel();
@@ -147,10 +147,6 @@ public class StudentsList extends javax.swing.JFrame {
                 lblName6.setForeground(new java.awt.Color(0, 102, 102));
                 lblName6.setText("Semestre");
 
-                lblName7.setFont(new java.awt.Font("CaskaydiaCove NF", 0, 18)); // NOI18N
-                lblName7.setForeground(new java.awt.Color(0, 102, 102));
-                lblName7.setText("Calificaciones");
-
                 javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
                 jPanel2.setLayout(jPanel2Layout);
                 jPanel2Layout.setHorizontalGroup(
@@ -170,9 +166,7 @@ public class StudentsList extends javax.swing.JFrame {
                                 .addComponent(lblName5)
                                 .addGap(69, 69, 69)
                                 .addComponent(lblName6)
-                                .addGap(49, 49, 49)
-                                .addComponent(lblName7)
-                                .addContainerGap(316, Short.MAX_VALUE))
+                                .addContainerGap(519, Short.MAX_VALUE))
                 );
                 jPanel2Layout.setVerticalGroup(
                         jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,7 +179,6 @@ public class StudentsList extends javax.swing.JFrame {
                                         .addComponent(lblName4)
                                         .addComponent(lblName5)
                                         .addComponent(lblName6)
-                                        .addComponent(lblName7)
                                         .addComponent(lblName3))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 );
@@ -304,7 +297,6 @@ public class StudentsList extends javax.swing.JFrame {
         private javax.swing.JLabel lblName4;
         private javax.swing.JLabel lblName5;
         private javax.swing.JLabel lblName6;
-        private javax.swing.JLabel lblName7;
         private javax.swing.JLabel lblNumberStudents;
         private javax.swing.JLabel lblSubject;
         private javax.swing.JPanel panelGroups;

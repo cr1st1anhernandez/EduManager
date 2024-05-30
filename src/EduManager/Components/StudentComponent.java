@@ -4,6 +4,8 @@
  */
 package EduManager.Components;
 
+import EduManager.Controllers.StudentController;
+import EduManager.Entities.Student;
 import raven.swing.AvatarIcon;
 
 /**
@@ -12,13 +14,9 @@ import raven.swing.AvatarIcon;
  */
 public class StudentComponent extends javax.swing.JPanel {
 
-	/**
-	 * Creates new form StudentComponent
-	 */
+	StudentController studentController = new StudentController();
 	public StudentComponent() {
 		initComponents();
-		AvatarIcon icon = new AvatarIcon(getClass().getResource("/EduManager/Images_profile/profile.png"), 40, 40, 999);
-		lblProfileImage.setIcon(icon);
 	}
 	
 	public void setEmail(String email){
@@ -30,7 +28,14 @@ public class StudentComponent extends javax.swing.JPanel {
 	}
 	
 	public void setStudentId(int studentId){
+		Student student = studentController.getStudentById(studentId);
 		lblId.setText(studentId+"");
+	}
+	
+	public void setStudentImagePath(String imagePath){
+		AvatarIcon icon = new AvatarIcon(getClass().getResource(imagePath), 40, 40, 999);
+		lblProfileImage.setIcon(icon);
+		this.repaint();
 	}
 	
 	public void setFirstName(String name){
@@ -62,13 +67,6 @@ public class StudentComponent extends javax.swing.JPanel {
                 lblLastName = new javax.swing.JLabel();
                 lblEmail = new javax.swing.JLabel();
                 lblPhoneNumber = new javax.swing.JLabel();
-                panelRound1 = new EduManager.Components.PanelRound();
-                lblPhoneNumber1 = new javax.swing.JLabel();
-                panelRound2 = new EduManager.Components.PanelRound();
-                lblPhoneNumber2 = new javax.swing.JLabel();
-                panelRound3 = new EduManager.Components.PanelRound();
-                lblPhoneNumber3 = new javax.swing.JLabel();
-                myButtonOutLine1 = new EduManager.Components.MyButtonOutLine();
                 jSeparator2 = new javax.swing.JSeparator();
 
                 setBackground(new java.awt.Color(255, 255, 255));
@@ -84,7 +82,7 @@ public class StudentComponent extends javax.swing.JPanel {
                 lblSemester.setFont(new java.awt.Font("CaskaydiaCove NF", 0, 18)); // NOI18N
                 lblSemester.setForeground(new java.awt.Color(111, 111, 129));
                 lblSemester.setText("4");
-                panelRound4.add(lblSemester, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 20, 20, -1));
+                panelRound4.add(lblSemester, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 20, 40, -1));
 
                 lblId.setFont(new java.awt.Font("CaskaydiaCove NF", 0, 18)); // NOI18N
                 lblId.setForeground(new java.awt.Color(111, 111, 129));
@@ -110,91 +108,6 @@ public class StudentComponent extends javax.swing.JPanel {
                 lblPhoneNumber.setForeground(new java.awt.Color(111, 111, 129));
                 lblPhoneNumber.setText("9513135154");
                 panelRound4.add(lblPhoneNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 20, 120, -1));
-
-                panelRound1.setBackground(new java.awt.Color(129, 205, 198));
-                panelRound1.setRoundBottomLeft(20);
-                panelRound1.setRoundBottomRight(20);
-                panelRound1.setRoundTopLeft(20);
-                panelRound1.setRoundTopRight(20);
-
-                lblPhoneNumber1.setFont(new java.awt.Font("CaskaydiaCove NF", 0, 18)); // NOI18N
-                lblPhoneNumber1.setForeground(new java.awt.Color(8, 85, 78));
-                lblPhoneNumber1.setText("U2 90");
-
-                javax.swing.GroupLayout panelRound1Layout = new javax.swing.GroupLayout(panelRound1);
-                panelRound1.setLayout(panelRound1Layout);
-                panelRound1Layout.setHorizontalGroup(
-                        panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelRound1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(lblPhoneNumber1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                );
-                panelRound1Layout.setVerticalGroup(
-                        panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(lblPhoneNumber1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                );
-
-                panelRound4.add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1440, 20, 70, 30));
-
-                panelRound2.setBackground(new java.awt.Color(129, 205, 198));
-                panelRound2.setRoundBottomLeft(20);
-                panelRound2.setRoundBottomRight(20);
-                panelRound2.setRoundTopLeft(20);
-                panelRound2.setRoundTopRight(20);
-
-                lblPhoneNumber2.setFont(new java.awt.Font("CaskaydiaCove NF", 0, 18)); // NOI18N
-                lblPhoneNumber2.setForeground(new java.awt.Color(8, 85, 78));
-                lblPhoneNumber2.setText("U3 80");
-
-                javax.swing.GroupLayout panelRound2Layout = new javax.swing.GroupLayout(panelRound2);
-                panelRound2.setLayout(panelRound2Layout);
-                panelRound2Layout.setHorizontalGroup(
-                        panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelRound2Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(lblPhoneNumber2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                );
-                panelRound2Layout.setVerticalGroup(
-                        panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound2Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(lblPhoneNumber2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                );
-
-                panelRound4.add(panelRound2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1530, 20, 70, 30));
-
-                panelRound3.setBackground(new java.awt.Color(129, 205, 198));
-                panelRound3.setRoundBottomLeft(20);
-                panelRound3.setRoundBottomRight(20);
-                panelRound3.setRoundTopLeft(20);
-                panelRound3.setRoundTopRight(20);
-
-                lblPhoneNumber3.setFont(new java.awt.Font("CaskaydiaCove NF", 0, 18)); // NOI18N
-                lblPhoneNumber3.setForeground(new java.awt.Color(8, 85, 78));
-                lblPhoneNumber3.setText("U1 80");
-
-                javax.swing.GroupLayout panelRound3Layout = new javax.swing.GroupLayout(panelRound3);
-                panelRound3.setLayout(panelRound3Layout);
-                panelRound3Layout.setHorizontalGroup(
-                        panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelRound3Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(lblPhoneNumber3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                );
-                panelRound3Layout.setVerticalGroup(
-                        panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblPhoneNumber3, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                );
-
-                panelRound4.add(panelRound3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1350, 20, 70, 30));
-
-                myButtonOutLine1.setText("Calificar");
-                panelRound4.add(myButtonOutLine1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1680, 20, -1, 30));
 
                 jSeparator2.setBackground(new java.awt.Color(0, 102, 102));
 
@@ -226,15 +139,8 @@ public class StudentComponent extends javax.swing.JPanel {
         private javax.swing.JLabel lblId;
         private javax.swing.JLabel lblLastName;
         private javax.swing.JLabel lblPhoneNumber;
-        private javax.swing.JLabel lblPhoneNumber1;
-        private javax.swing.JLabel lblPhoneNumber2;
-        private javax.swing.JLabel lblPhoneNumber3;
         private javax.swing.JLabel lblProfileImage;
         private javax.swing.JLabel lblSemester;
-        private EduManager.Components.MyButtonOutLine myButtonOutLine1;
-        private EduManager.Components.PanelRound panelRound1;
-        private EduManager.Components.PanelRound panelRound2;
-        private EduManager.Components.PanelRound panelRound3;
         private EduManager.Components.PanelRound panelRound4;
         // End of variables declaration//GEN-END:variables
 }
