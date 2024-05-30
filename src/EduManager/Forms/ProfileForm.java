@@ -1,7 +1,14 @@
 package EduManager.Forms;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import EduManager.Components.ChangePasswordComponent;
-import EduManager.Application.Application;
 import EduManager.Components.SimpleForm;
 import EduManager.Controllers.UserController;
 import EduManager.Entities.Coordinator;
@@ -9,8 +16,6 @@ import EduManager.Entities.Student;
 import EduManager.Entities.Teacher;
 import EduManager.Entities.User;
 import EduManager.Menu.FormManager;
-import java.awt.EventQueue;
-import javax.swing.JFrame;
 import raven.swing.AvatarIcon;
 
 /**
@@ -19,53 +24,67 @@ import raven.swing.AvatarIcon;
  */
 public class ProfileForm extends SimpleForm {
 
-	User user = UserController.getUser();
+        User user = UserController.getUser();
 
-	public ProfileForm() {
-		initComponents();
+        public ProfileForm() {
+                initComponents();
+                String pathImage = user.getImagePath();
+                AvatarIcon icon = new AvatarIcon(getClass().getResource(pathImage), 75, 75, 999);
+                lblProfileImage.setIcon(icon);
 
-		AvatarIcon icon = new AvatarIcon(getClass().getResource("/EduManager/Images/profile.png"), 75, 75, 999);
-		icon.setBorder(2);
-		lblProfileImage.setIcon(icon);
+                myLabelFirstName.setText(user.getFirstName());
+                myLabelLastName.setText(user.getLastName());
+                myLabelEmail.setText(user.getEmail());
+                myLabelPhone.setText(user.getPhoneNumber());
+                myLabelCurp.setText("NO DISPONIBLE");
+                myLabelDate.setText("NO DISPONIBLE");
+                myLabelGender.setText("NO DISPONIBLE");
+                myLabelControlNumber.setText("NO DISPONIBLE");
 
-		myLabelFirstName.setText(user.getFirstName());
-		myLabelLastName.setText(user.getLastName());
-		myLabelEmail.setText(user.getEmail());
-		myLabelPhone.setText(user.getPhoneNumber());
-		myLabelCurp.setText("NO DISPONIBLE");
-		myLabelDate.setText("NO DISPONIBLE");
-		myLabelGender.setText("NO DISPONIBLE");
-		myLabelControlNumber.setText("NO DISPONIBLE");
+                if (user instanceof Student) {
+                        Student student = (Student) user;
+                        myLabelCurp.setText(student.getCurp());
+                        myLabelDate.setText(student.getBirthDate().toString());
+                        myLabelGender.setText(String.valueOf(student.getGender()));
+                        myLabelControlNumber.setText(student.getUserId() + "");
+                } else if (user instanceof Teacher) {
+                        Teacher teacher = (Teacher) user;
+                        myLabelCurp.setText(teacher.getCurp());
+                        myLabelDate.setText(teacher.getBirthDate().toString());
+                        myLabelGender.setText(String.valueOf(teacher.getGender()));
+                        myLabelControlNumber.setText(teacher.getUserId() + "");
+                } else if (user instanceof Coordinator) {
+                        Coordinator coordinator = (Coordinator) user;
+                        myLabelCurp.setText(coordinator.getCurp());
+                        myLabelDate.setText(coordinator.getBirthDate().toString());
+                        myLabelGender.setText(String.valueOf(coordinator.getGender()));
+                        myLabelControlNumber.setText(coordinator.getUserId() + "");
+                }
+        }
 
-		if (user instanceof Student) {
-			Student student = (Student) user;
-			myLabelCurp.setText(student.getCurp());
-			myLabelDate.setText(student.getBirthDate().toString());
-			myLabelGender.setText(String.valueOf(student.getGender()));
-			myLabelControlNumber.setText(student.getUserId() + "");
-		} else if (user instanceof Teacher) {
-			Teacher teacher = (Teacher) user;
-			myLabelCurp.setText(teacher.getCurp());
-			myLabelDate.setText(teacher.getBirthDate().toString());
-			myLabelGender.setText(String.valueOf(teacher.getGender()));
-			myLabelControlNumber.setText(teacher.getUserId() + "");
-		} else if (user instanceof Coordinator) {
-			Coordinator coordinator = (Coordinator) user;
-			myLabelCurp.setText(coordinator.getCurp());
-			myLabelDate.setText(coordinator.getBirthDate().toString());
-			myLabelGender.setText(String.valueOf(coordinator.getGender()));
-			myLabelControlNumber.setText(coordinator.getUserId() + "");
-		}
-	}
+        private void updateProfileImage(String imagePath) {
+                // Si estás usando rutas absolutas, asegúrate de convertirlas a URLs válidas
+                // para el AvatarIcon
+                File imageFile = new File(imagePath);
+                try {
+                        AvatarIcon icon = new AvatarIcon(imageFile.toURI().toURL(), 75, 75, 999);
+                        icon.setBorder(2);
+                        lblProfileImage.setIcon(icon);
+                } catch (Exception e) {
+                        e.printStackTrace();
+                }
+        }
 
-	@SuppressWarnings("unchecked")
-        // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+        @SuppressWarnings("unchecked")
+        // <editor-fold defaultstate="collapsed" desc="Generated
+        // <editor-fold defaultstate="collapsed" desc="Generated
+        // Code">//GEN-BEGIN:initComponents
         private void initComponents() {
 
                 jPanel1 = new javax.swing.JPanel();
                 panelRound1 = new EduManager.Components.PanelRound();
                 lblUsernameContent2 = new javax.swing.JLabel();
-                myButtonOutLine2 = new EduManager.Components.MyButtonOutLine();
+                btnChangeProfile = new EduManager.Components.MyButtonOutLine();
                 lblUsername2 = new javax.swing.JLabel();
                 lblUsername = new javax.swing.JLabel();
                 lblUsername5 = new javax.swing.JLabel();
@@ -113,13 +132,19 @@ public class ProfileForm extends SimpleForm {
                 lblUsernameContent2.setText("Detalles del Perfil");
                 panelRound1.add(lblUsernameContent2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
-                myButtonOutLine2.setText("Cambiar Foto De Perfil");
-                panelRound1.add(myButtonOutLine2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, 250, 40));
+                btnChangeProfile.setText("Cambiar Foto De Perfil");
+                btnChangeProfile.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                btnChangeProfileActionPerformed(evt);
+                        }
+                });
+                panelRound1.add(btnChangeProfile, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, 250, 40));
 
                 lblUsername2.setFont(new java.awt.Font("CaskaydiaCove NF", 0, 12)); // NOI18N
                 lblUsername2.setForeground(new java.awt.Color(170, 171, 184));
-                lblUsername2.setText("<html><body>Las imagenes deben ser de al menos 360px.<br> Deben pesar menos de 500kb. Formatos permitidos .png .jpg</body></html>\n");
-                panelRound1.add(lblUsername2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, 430, -1));
+                lblUsername2.setText(
+                                "<html><body>Las imagenes deben ser de al menos 360px.<br> Deben pesar menos de 5mb. Formatos permitidos *.png *.jpg *.jpeg *.gif</body></html> ");
+                panelRound1.add(lblUsername2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, 500, -1));
 
                 lblUsername.setFont(new java.awt.Font("CaskaydiaCove NF", 0, 18)); // NOI18N
                 lblUsername.setText("Nombre");
@@ -173,26 +198,38 @@ public class ProfileForm extends SimpleForm {
                 javax.swing.GroupLayout panelRound3Layout = new javax.swing.GroupLayout(panelRound3);
                 panelRound3.setLayout(panelRound3Layout);
                 panelRound3Layout.setHorizontalGroup(
-                        panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelRound3Layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addGroup(panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblUsername7, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lblUsernameContent3)
-                                        .addComponent(btnChangePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 815, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(24, Short.MAX_VALUE))
-                );
+                                panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(panelRound3Layout.createSequentialGroup()
+                                                                .addGap(21, 21, 21)
+                                                                .addGroup(panelRound3Layout.createParallelGroup(
+                                                                                javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                .addComponent(lblUsername7,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                582,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addComponent(lblUsernameContent3)
+                                                                                .addComponent(btnChangePassword,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                815,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addContainerGap(24, Short.MAX_VALUE)));
                 panelRound3Layout.setVerticalGroup(
-                        panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound3Layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addComponent(lblUsernameContent3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblUsername7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                                .addComponent(btnChangePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(19, 19, 19))
-                );
+                                panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound3Layout
+                                                                .createSequentialGroup()
+                                                                .addGap(24, 24, 24)
+                                                                .addComponent(lblUsernameContent3)
+                                                                .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                                .addComponent(lblUsername7)
+                                                                .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                                                                34, Short.MAX_VALUE)
+                                                                .addComponent(btnChangePassword,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                50,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(19, 19, 19)));
 
                 jPanel1.add(panelRound3, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 350, 860, 190));
 
@@ -218,7 +255,8 @@ public class ProfileForm extends SimpleForm {
                 lblUsername9.setText("Telefono");
                 panelRound4.add(lblUsername9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, -1));
                 panelRound4.add(myLabelPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 390, -1));
-                panelRound4.add(myLabelControlNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 200, 390, -1));
+                panelRound4.add(myLabelControlNumber,
+                                new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 200, 390, -1));
 
                 lblUsername8.setFont(new java.awt.Font("CaskaydiaCove NF", 0, 18)); // NOI18N
                 lblUsername8.setText("Numero de Control");
@@ -255,56 +293,113 @@ public class ProfileForm extends SimpleForm {
                 javax.swing.GroupLayout panelRound5Layout = new javax.swing.GroupLayout(panelRound5);
                 panelRound5.setLayout(panelRound5Layout);
                 panelRound5Layout.setHorizontalGroup(
-                        panelRound5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelRound5Layout.createSequentialGroup()
-                                .addGap(26, 26, 26)
-                                .addGroup(panelRound5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblWelcome)
-                                        .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 561, Short.MAX_VALUE)
-                                .addComponent(jLabel3)
-                                .addGap(25, 25, 25))
-                );
+                                panelRound5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(panelRound5Layout.createSequentialGroup()
+                                                                .addGap(26, 26, 26)
+                                                                .addGroup(panelRound5Layout.createParallelGroup(
+                                                                                javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                .addComponent(lblWelcome)
+                                                                                .addComponent(myButton1,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                378,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                                                                561, Short.MAX_VALUE)
+                                                                .addComponent(jLabel3)
+                                                                .addGap(25, 25, 25)));
                 panelRound5Layout.setVerticalGroup(
-                        panelRound5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound5Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                        .addGroup(panelRound5Layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addComponent(lblWelcome)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(25, 25, 25))
-                );
+                                panelRound5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+                                                                panelRound5Layout.createSequentialGroup()
+                                                                                .addComponent(jLabel3)
+                                                                                .addGap(0, 0, Short.MAX_VALUE))
+                                                .addGroup(panelRound5Layout.createSequentialGroup()
+                                                                .addGap(15, 15, 15)
+                                                                .addComponent(lblWelcome)
+                                                                .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                Short.MAX_VALUE)
+                                                                .addComponent(myButton1,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                52,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(25, 25, 25)));
 
                 jPanel1.add(panelRound5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 1590, 250));
 
                 add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1850, 1000));
         }// </editor-fold>//GEN-END:initComponents
 
-        private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
+        private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnChangePasswordActionPerformed
                 // TODO add your handling code here:
-		ChangePasswordComponent changePasswordFrame = new ChangePasswordComponent();
-		changePasswordFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		changePasswordFrame.setVisible(true);
-        }//GEN-LAST:event_btnChangePasswordActionPerformed
+                ChangePasswordComponent changePasswordFrame = new ChangePasswordComponent();
+                changePasswordFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                changePasswordFrame.setVisible(true);
+        }// GEN-LAST:event_btnChangePasswordActionPerformed
 
-        private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
+        private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_myButton1ActionPerformed
                 // TODO add your handling code here:
-                
-		if (user instanceof Student) {
-			FormManager.showForm(new StudentForm());
-		} else if (user instanceof Teacher) {
-			FormManager.showForm(new TeacherForm());
-		} else if (user instanceof Coordinator) {
-			FormManager.showForm(new CoordinatorForm());
-		}
-		
-        }//GEN-LAST:event_myButton1ActionPerformed
+
+                if (user instanceof Student) {
+                        FormManager.showForm(new StudentForm());
+                } else if (user instanceof Teacher) {
+                        FormManager.showForm(new TeacherForm());
+                } else if (user instanceof Coordinator) {
+                        FormManager.showForm(new CoordinatorForm());
+                }
+
+        }// GEN-LAST:event_myButton1ActionPerformed
+
+        private void btnChangeProfileActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnChangeProfileActionPerformed
+
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Seleccione una imagen de perfil");
+
+                fileChooser.setAcceptAllFileFilterUsed(false);
+                fileChooser.addChoosableFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Imágenes",
+                                "jpg", "jpeg", "png", "gif"));
+
+                int userSelection = fileChooser.showOpenDialog(null);
+
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                        File fileToSave = fileChooser.getSelectedFile();
+
+                        File dir = new File("src/EduManager/Images_profile/");
+                        if (!dir.exists()) {
+                                dir.mkdirs();
+                        }
+
+                        String destPath = "src/EduManager/Images_profile/" + fileToSave.getName();
+                        File destFile = new File(destPath);
+
+                        try {
+                                Files.copy(fileToSave.toPath(), destFile.toPath());
+                                String imagePath = destFile.getAbsolutePath();
+
+                                // Actualizar la ruta de la imagen en la base de datos y en el objeto en memoria
+                                boolean success = UserController.updateImagePath(imagePath);
+
+                                if (success) {
+                                        // Actualizar la imagen de perfil en la interfaz
+                                        updateProfileImage(imagePath);
+                                        JOptionPane.showMessageDialog(null, "Imagen de perfil actualizada con éxito.");
+                                } else {
+                                        JOptionPane.showMessageDialog(null, "Error al actualizar la imagen de perfil.",
+                                                        "Error", JOptionPane.ERROR_MESSAGE);
+                                }
+                        } catch (IOException ex) {
+                                ex.printStackTrace();
+                                JOptionPane.showMessageDialog(null, "Error al guardar la imagen: " + ex.getMessage(),
+                                                "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                }
+        }// GEN-LAST:event_btnChangeProfileActionPerformed
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
         private EduManager.Components.MyButton btnChangePassword;
+        private EduManager.Components.MyButtonOutLine btnChangeProfile;
         private javax.swing.JLabel jLabel3;
         private javax.swing.JPanel jPanel1;
         private javax.swing.JLabel lblProfileImage;
@@ -323,7 +418,6 @@ public class ProfileForm extends SimpleForm {
         private javax.swing.JLabel lblUsernameContent4;
         private javax.swing.JLabel lblWelcome;
         private EduManager.Components.MyButton myButton1;
-        private EduManager.Components.MyButtonOutLine myButtonOutLine2;
         private EduManager.Components.MyLabel myLabelControlNumber;
         private EduManager.Components.MyLabel myLabelCurp;
         private EduManager.Components.MyLabel myLabelDate;

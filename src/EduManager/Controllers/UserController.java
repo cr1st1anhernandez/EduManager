@@ -43,6 +43,62 @@ public class UserController {
 		return coordinator;
 	}
 
+	public static boolean updateImagePath(String newPath) {
+		if (user == null) {
+			return false;
+		}
+		String userType = "";
+		if (user instanceof Student) {
+			userType = "Student";
+		} else if (user instanceof Teacher) {
+			userType = "Teacher";
+		} else if (user instanceof Coordinator) {
+			userType = "Coordinator";
+		} else if (user instanceof Admin) {
+			userType = "Admin";
+		}
+		try {
+			DatabaseAccess.connect();
+			String query = "";
+			switch (userType) {
+				case "Student":
+					query = "UPDATE Student SET imagePath = ? WHERE studentId = ?";
+					break;
+				case "Teacher":
+					query = "UPDATE Teacher SET imagePath = ? WHERE teacherId = ?";
+					break;
+				case "Coordinator":
+					query = "UPDATE Coordinator SET imagePath = ? WHERE coordinatorId = ?";
+					break;
+				case "Admin":
+					query = "UPDATE Admin SET imagePath = ? WHERE adminId = ?";
+					break;
+				default:
+					return false;
+			}
+
+			// Guardar solo la ruta relativa, sin la carpeta "src"
+			String baseDir = System.getProperty("user.dir").replace("\\", "/");
+			String newPathNormalized = newPath.replace("\\", "/");
+			String relativePath = newPathNormalized.replaceFirst("^.*?/EduManager", "/EduManager").replace("/src/EduManager", "");
+
+			PreparedStatement preparedStatement = DatabaseAccess.getConnection().prepareStatement(query);
+			preparedStatement.setString(1, relativePath);
+			preparedStatement.setInt(2, user.getUserId());
+			int rowsAffected = preparedStatement.executeUpdate();
+
+			// Actualizar el objeto de usuario en memoria
+			if (rowsAffected > 0) {
+				user.setImagePath(relativePath);
+				return true;
+			}
+			return false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 	public static boolean login(String username, String password) {
 		try {
 			DatabaseAccess.connect();
@@ -60,6 +116,7 @@ public class UserController {
 				student.setCurp(resultSet.getString("curp"));
 				student.setPhoneNumber(resultSet.getString("phoneNumber"));
 				student.setEmail(resultSet.getString("email"));
+				student.setImagePath(resultSet.getString("imagePath"));
 				student.setCareer(resultSet.getString("career"));
 				student.setSemester(resultSet.getInt("semester"));
 				student.setBirthDate(resultSet.getDate("birthDate"));
@@ -85,6 +142,7 @@ public class UserController {
 				teacher.setCurp(resultSet.getString("curp"));
 				teacher.setEmail(resultSet.getString("email"));
 				teacher.setPhoneNumber(resultSet.getString("phoneNumber"));
+				teacher.setImagePath(resultSet.getString("imagePath"));
 				teacher.setBirthDate(resultSet.getDate("birthDate"));
 				String genderStr = resultSet.getString("gender");
 				if (genderStr != null && !genderStr.isEmpty()) {
@@ -109,6 +167,7 @@ public class UserController {
 				coordinator.setCurp(resultSet.getString("curp"));
 				coordinator.setEmail(resultSet.getString("email"));
 				coordinator.setPhoneNumber(resultSet.getString("phoneNumber"));
+				coordinator.setImagePath(resultSet.getString("imagePath"));
 				coordinator.setBirthDate(resultSet.getDate("birthDate"));
 				String genderStr = resultSet.getString("gender");
 				if (genderStr != null && !genderStr.isEmpty()) {
@@ -129,6 +188,7 @@ public class UserController {
 				admin.setUserId(resultSet.getInt("adminId"));
 				admin.setPhoneNumber(resultSet.getString("phoneNumber"));
 				admin.setEmail(resultSet.getString("email"));
+				admin.setImagePath(resultSet.getString("imagePath"));
 				admin.setFirstName(resultSet.getString("firstName"));
 				admin.setLastName(resultSet.getString("lastName"));
 				user = admin;
@@ -136,7 +196,7 @@ public class UserController {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
+		}
 		return false;
 	}
 
@@ -190,6 +250,6 @@ public class UserController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
-		} 
+		}
 	}
 }

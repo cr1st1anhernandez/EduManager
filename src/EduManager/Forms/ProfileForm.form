@@ -75,10 +75,13 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="EduManager.Components.MyButtonOutLine" name="myButtonOutLine2">
+            <Component class="EduManager.Components.MyButtonOutLine" name="btnChangeProfile">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cambiar Foto De Perfil"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnChangeProfileActionPerformed"/>
+              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="140" y="90" width="250" height="40"/>
@@ -93,11 +96,11 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="b8" green="ab" red="aa" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;body&gt;Las imagenes deben ser de al menos 360px.&lt;br&gt; Deben pesar menos de 500kb. Formatos permitidos .png .jpg&lt;/body&gt;&lt;/html&gt;&#xa;"/>
+                <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;body&gt;Las imagenes deben ser de al menos 360px.&lt;br&gt; Deben pesar menos de 5mb. Formatos permitidos *.png *.jpg *.jpeg *.gif&lt;/body&gt;&lt;/html&gt; "/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="140" y="140" width="430" height="-1"/>
+                  <AbsoluteConstraints x="140" y="140" width="500" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>

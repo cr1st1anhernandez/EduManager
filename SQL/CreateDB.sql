@@ -13,6 +13,7 @@ CREATE TABLE Teacher (
     birthDate DATE NOT NULL,
     gender CHAR(1) NOT NULL,
     career VARCHAR(255) NOT NULL,
+    imagePath VARCHAR(255) NOT NULL DEFAULT '/EduManager/Images_profile/profile.png',
     PRIMARY KEY (teacherId)
 );
 
@@ -27,6 +28,7 @@ CREATE TABLE Coordinator (
     birthDate DATE NOT NULL,
     gender CHAR(1) NOT NULL,
     area VARCHAR(255) NOT NULL,
+    imagePath VARCHAR(255) NOT NULL DEFAULT '/EduManager/Images_profile/profile.png',
     PRIMARY KEY (coordinatorId)
 );
 
@@ -42,6 +44,7 @@ CREATE TABLE Student (
     gender CHAR(1) NOT NULL,
     career VARCHAR(255) NOT NULL,
     semester TINYINT NOT NULL,
+    imagePath VARCHAR(255) NOT NULL DEFAULT '/EduManager/Images_profile/profile.png',
     PRIMARY KEY (studentId)
 );
 
@@ -79,6 +82,7 @@ CREATE TABLE Admin (
     lastName VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     phoneNumber VARCHAR(20) NOT NULL,
+    imagePath VARCHAR(255) NOT NULL DEFAULT '/EduManager/Images_profile/profile.png',
     PRIMARY KEY (adminId)
 );
 

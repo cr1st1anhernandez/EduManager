@@ -4,13 +4,15 @@ import java.awt.EventQueue;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
-import EduManager.Components.ComboBoxItem;
 import EduManager.Components.GroupStudentComponent;
 import EduManager.Components.GroupSubjectComponent;
 import EduManager.Components.SimpleForm;
 import EduManager.Components.SuccessComponent;
+import EduManager.Components.SupportComponent;
 import EduManager.Controllers.EnrollmentController;
 import EduManager.Controllers.GroupSubjectController;
 import EduManager.Controllers.SubjectController;
@@ -19,14 +21,9 @@ import EduManager.Controllers.UserController;
 import EduManager.Entities.Enrollment;
 import EduManager.Entities.GroupSubject;
 import EduManager.Entities.Student;
-import EduManager.Entities.Subject;
-import EduManager.Entities.Teacher;
 import EduManager.Entities.User;
 import EduManager.Menu.FormManager;
 import EduManager.Utils.PdfGenerator;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import raven.swing.AvatarIcon;
 import raven.toast.Notifications;
 
@@ -46,11 +43,11 @@ public class StudentForm extends SimpleForm {
 	GroupSubjectController groupSubjectController = new GroupSubjectController();
 	private TeacherController teacherController = new TeacherController();
 	private SubjectController subjectController = new SubjectController();
-	AvatarIcon icon = new AvatarIcon(getClass().getResource("/EduManager/Images/profile.png"), 75, 75, 999);
+	String pathImage = user.getImagePath();
+        AvatarIcon icon = new AvatarIcon(getClass().getResource(pathImage), 75, 75, 999);
 
 	public StudentForm() {
 		initComponents();
-		icon.setBorder(2);
 		lblProfileImage.setIcon(icon);
 		fillPanelSubjects();
 		lblWelcome.setText("Bienvenido " + student.getFirstName());
@@ -503,7 +500,8 @@ public class StudentForm extends SimpleForm {
 
 	private void btnSupportActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSupportActionPerformed
 		// TODO add your handling code here:
-		SupportFrame supportFrame = new SupportFrame();
+		SupportComponent supportFrame = new SupportComponent();
+		supportFrame.setUser(student.getFirstName() + " " + student.getLastName());
 		supportFrame.setEmail(student.getEmail());
 		supportFrame.setVisible(true);
 	}// GEN-LAST:event_btnSupportActionPerformed

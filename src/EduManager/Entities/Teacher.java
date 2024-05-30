@@ -13,8 +13,8 @@ public class Teacher extends User {
     private char gender;
     private String curp;
 
-    public Teacher(int userId, String password, String firstName, String lastName, String email, String phoneNumber, String curp, Date birthDate, char gender, String career) {
-        super(userId, password, firstName, lastName, email, phoneNumber);
+    public Teacher(int userId, String password, String firstName, String lastName, String email, String phoneNumber, String curp, Date birthDate, char gender, String career, String imagePath) {
+        super(userId, password, firstName, lastName, email, phoneNumber, imagePath);
         this.career = career;
         this.birthDate = birthDate;
         this.gender = gender;

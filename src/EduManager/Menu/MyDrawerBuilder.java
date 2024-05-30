@@ -50,7 +50,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
 
     @Override
     public SimpleHeaderData getSimpleHeaderData() {
-        AvatarIcon icon = new AvatarIcon(getClass().getResource("/EduManager/Images/profile.png"), 60, 60, 999);
+        AvatarIcon icon = new AvatarIcon(getClass().getResource("/EduManager/Images_Profile/profile.png"), 60, 60, 999);
         icon.setBorder(2);
         return new SimpleHeaderData()
                 .setIcon(icon)

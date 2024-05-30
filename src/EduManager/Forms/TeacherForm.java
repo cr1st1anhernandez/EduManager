@@ -1,18 +1,19 @@
 package EduManager.Forms;
 
+import java.util.List;
+
+import javax.swing.JFrame;
+
 import EduManager.Application.Application;
 import EduManager.Components.GroupComponent;
 import EduManager.Components.SimpleForm;
+import EduManager.Components.SupportComponent;
 import EduManager.Controllers.GroupSubjectController;
 import EduManager.Controllers.UserController;
 import EduManager.Entities.GroupSubject;
 import EduManager.Entities.Teacher;
 import EduManager.Entities.User;
 import EduManager.Menu.FormManager;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.swing.JFrame;
 import raven.swing.AvatarIcon;
 
 public class TeacherForm extends SimpleForm {
@@ -23,8 +24,8 @@ public class TeacherForm extends SimpleForm {
 
 	public TeacherForm() {
 		initComponents();
-		AvatarIcon icon = new AvatarIcon(getClass().getResource("/EduManager/Images/profile.png"), 75, 75, 999);
-		icon.setBorder(2);
+		String pathImage = user.getImagePath();
+                AvatarIcon icon = new AvatarIcon(getClass().getResource(pathImage), 75, 75, 999);
 		lblProfileImage.setIcon(icon);
 		List<GroupSubject> groups = groupController.getGroupsSubjectsByTeacherId(teacher.getUserId());
 		addGroupsToPanel(groups);
@@ -301,7 +302,8 @@ public class TeacherForm extends SimpleForm {
 
         private void btnSupportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupportActionPerformed
                 // TODO add your handling code here:
-		SupportFrame supportFrame = new SupportFrame();
+		SupportComponent supportFrame = new SupportComponent();
+		supportFrame.setUser(teacher.getFirstName() + " " + teacher.getLastName());
 		supportFrame.setEmail(teacher.getEmail());
 		supportFrame.setVisible(true);
         }//GEN-LAST:event_btnSupportActionPerformed

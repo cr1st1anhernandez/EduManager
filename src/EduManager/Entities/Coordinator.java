@@ -13,8 +13,8 @@ public class Coordinator extends User {
 	private char gender;
 	private String curp;
 
-	public Coordinator(int userId, String password, String firstName, String lastName, String email, String phoneNumber, String curp, Date birthDate, char gender, String area) {
-		super(userId, password, firstName, lastName, email, phoneNumber);
+	public Coordinator(int userId, String password, String firstName, String lastName, String email, String phoneNumber, String curp, Date birthDate, char gender, String area, String pathImage) {
+		super(userId, password, firstName, lastName, email, phoneNumber, pathImage);
 		this.area = area;
 	}
 }

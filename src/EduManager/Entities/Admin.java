@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Admin extends User {
-  public Admin(int userId, String password, String firstName, String lastName, String email, String phoneNumber) {
-    super(userId, password, firstName, lastName, email, phoneNumber);
+  public Admin(int userId, String password, String firstName, String lastName, String email, String phoneNumber, String imagePath) {
+    super(userId, password, firstName, lastName, email, phoneNumber, imagePath);
   }
 }

@@ -15,8 +15,8 @@ public class Student extends User {
 	private String curp;
 	private int semester;
 
-	public Student(int userId, String password, String firstName, String lastName, String email, String phoneNumber, String curp, Date birthDate, char gender, String career, int semester) {
-		super(userId, password, firstName, lastName, email, phoneNumber);
+	public Student(int userId, String password, String firstName, String lastName, String email, String phoneNumber, String curp, Date birthDate, char gender, String career, int semester, String imagePath) {
+		super(userId, password, firstName, lastName, email, phoneNumber, imagePath);
 		this.career = career;
 		this.birthDate = birthDate;
 		this.gender = gender;

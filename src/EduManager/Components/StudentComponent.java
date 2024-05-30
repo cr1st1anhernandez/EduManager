@@ -17,7 +17,7 @@ public class StudentComponent extends javax.swing.JPanel {
 	 */
 	public StudentComponent() {
 		initComponents();
-		AvatarIcon icon = new AvatarIcon(getClass().getResource("/EduManager/Images/profile.png"), 40, 40, 999);
+		AvatarIcon icon = new AvatarIcon(getClass().getResource("/EduManager/Images_profile/profile.png"), 40, 40, 999);
 		lblProfileImage.setIcon(icon);
 	}
 	
