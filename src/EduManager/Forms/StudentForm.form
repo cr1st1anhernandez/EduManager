@@ -324,11 +324,14 @@
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lblUsernameContent4" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="btnLogOut" min="-2" pref="473" max="-2" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Component id="btnDownloadSchedule" max="32767" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="btnDownloadSchedule" min="-2" pref="239" max="-2" attributes="0"/>
+                                  <Component id="btnEmailSchedule" min="-2" pref="239" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="btnLogOut" alignment="0" min="-2" pref="222" max="-2" attributes="0"/>
                                   <Component id="btnSupport" min="-2" pref="222" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -347,9 +350,12 @@
                           <Component id="btnSupport" alignment="3" min="-2" pref="54" max="-2" attributes="0"/>
                           <Component id="btnDownloadSchedule" alignment="3" min="-2" pref="53" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnLogOut" min="-2" pref="54" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btnLogOut" alignment="3" min="-2" pref="54" max="-2" attributes="0"/>
+                          <Component id="btnEmailSchedule" alignment="3" min="-2" pref="53" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -389,6 +395,14 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Opciones"/>
               </Properties>
+            </Component>
+            <Component class="EduManager.Components.MyButton" name="btnEmailSchedule">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Enviar Horario a tu email"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEmailScheduleActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

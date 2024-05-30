@@ -24,6 +24,7 @@ import EduManager.Entities.Student;
 import EduManager.Entities.User;
 import EduManager.Menu.FormManager;
 import EduManager.Utils.PdfGenerator;
+import javax.mail.MessagingException;
 import raven.swing.AvatarIcon;
 import raven.toast.Notifications;
 
@@ -44,7 +45,7 @@ public class StudentForm extends SimpleForm {
 	private TeacherController teacherController = new TeacherController();
 	private SubjectController subjectController = new SubjectController();
 	String pathImage = user.getImagePath();
-        AvatarIcon icon = new AvatarIcon(getClass().getResource(pathImage), 75, 75, 999);
+	AvatarIcon icon = new AvatarIcon(getClass().getResource(pathImage), 75, 75, 999);
 
 	public StudentForm() {
 		initComponents();
@@ -160,6 +161,7 @@ public class StudentForm extends SimpleForm {
                 btnLogOut = new EduManager.Components.MyButtonOutLine();
                 btnSupport = new EduManager.Components.MyButtonOutLine();
                 lblUsernameContent4 = new javax.swing.JLabel();
+                btnEmailSchedule = new EduManager.Components.MyButton();
                 comboBoxHours = new EduManager.Components.Combobox();
                 panelRound7 = new EduManager.Components.PanelRound();
                 panelRound9 = new EduManager.Components.PanelRound();
@@ -331,6 +333,13 @@ public class StudentForm extends SimpleForm {
                 lblUsernameContent4.setForeground(new java.awt.Color(111, 111, 129));
                 lblUsernameContent4.setText("Opciones");
 
+                btnEmailSchedule.setText("Enviar Horario a tu email");
+                btnEmailSchedule.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                btnEmailScheduleActionPerformed(evt);
+                        }
+                });
+
                 javax.swing.GroupLayout panelRound8Layout = new javax.swing.GroupLayout(panelRound8);
                 panelRound8.setLayout(panelRound8Layout);
                 panelRound8Layout.setHorizontalGroup(
@@ -339,11 +348,13 @@ public class StudentForm extends SimpleForm {
                                 .addGap(20, 20, 20)
                                 .addGroup(panelRound8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(lblUsernameContent4)
-                                        .addGroup(panelRound8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGroup(panelRound8Layout.createSequentialGroup()
-                                                        .addComponent(btnDownloadSchedule, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(panelRound8Layout.createSequentialGroup()
+                                                .addGroup(panelRound8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(btnDownloadSchedule, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(btnEmailSchedule, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addGroup(panelRound8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addComponent(btnSupport, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addContainerGap(17, Short.MAX_VALUE))
                 );
@@ -356,9 +367,11 @@ public class StudentForm extends SimpleForm {
                                 .addGroup(panelRound8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(btnSupport, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(btnDownloadSchedule, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(15, 15, 15))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(panelRound8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnEmailSchedule, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(21, 21, 21))
                 );
 
                 jPanel1.add(panelRound8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1320, 790, 510, 190));
@@ -483,6 +496,28 @@ public class StudentForm extends SimpleForm {
 		}
 
         }//GEN-LAST:event_btnDownloadScheduleActionPerformed
+
+        private void btnEmailScheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmailScheduleActionPerformed
+		// TODO add your handling code here:
+		PdfGenerator pdfGenerator = new PdfGenerator();
+		String fileName = "horario_estudiante.pdf";
+		List<Enrollment> enrollments = enrollmentController.getEnrollmentsByStudentId(student.getUserId());
+		List<GroupSubject> groupSubjects = new ArrayList<>();
+
+		for (Enrollment enrollment : enrollments) {
+			GroupSubject groupSubject = groupSubjectController.getGroupSubjectById(enrollment.getGroupSubjectId());
+			if (groupSubject != null) {
+				groupSubjects.add(groupSubject);
+			}
+		}
+		String emailTo = student.getEmail();
+		try {
+			pdfGenerator.sendPdfByEmail(fileName, groupSubjects, emailTo);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+
+        }//GEN-LAST:event_btnEmailScheduleActionPerformed
 // GEN-FIRST:event_btnSearchActionPerformed
 // TODO add your handling code here:
 // GEN-LAST:event_btnSearchActionPerformed
@@ -513,6 +548,7 @@ public class StudentForm extends SimpleForm {
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
         private EduManager.Components.MyButton btnDownloadSchedule;
+        private EduManager.Components.MyButton btnEmailSchedule;
         private EduManager.Components.MyButtonOutLine btnLogOut;
         private EduManager.Components.MyButtonOutLine btnSupport;
         private EduManager.Components.Combobox comboBoxHours;
