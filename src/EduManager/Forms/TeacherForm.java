@@ -7,25 +7,35 @@ import javax.swing.JFrame;
 import EduManager.Application.Application;
 import EduManager.Components.GroupComponent;
 import EduManager.Components.SimpleForm;
+import EduManager.Components.SuccessComponent;
 import EduManager.Components.SupportComponent;
+import EduManager.Controllers.EnrollmentController;
 import EduManager.Controllers.GroupSubjectController;
 import EduManager.Controllers.UserController;
+import EduManager.Entities.Enrollment;
 import EduManager.Entities.GroupSubject;
 import EduManager.Entities.Teacher;
 import EduManager.Entities.User;
 import EduManager.Menu.FormManager;
+import EduManager.Utils.PdfGenerator;
+import java.util.ArrayList;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import raven.swing.AvatarIcon;
+import raven.toast.Notifications;
 
 public class TeacherForm extends SimpleForm {
 
 	GroupSubjectController groupController = new GroupSubjectController();
+	GroupSubjectController groupSubjectController = new GroupSubjectController();
+	EnrollmentController enrollmentController = new EnrollmentController();
 	User user = UserController.getUser();
 	Teacher teacher = (Teacher) user;
 
 	public TeacherForm() {
 		initComponents();
 		String pathImage = user.getImagePath();
-                AvatarIcon icon = new AvatarIcon(getClass().getResource(pathImage), 75, 75, 999);
+		AvatarIcon icon = new AvatarIcon(getClass().getResource(pathImage), 75, 75, 999);
 		lblProfileImage.setIcon(icon);
 		List<GroupSubject> groups = groupController.getGroupsSubjectsByTeacherId(teacher.getUserId());
 		addGroupsToPanel(groups);
@@ -74,7 +84,6 @@ public class TeacherForm extends SimpleForm {
                 calendar1 = new raven.calendar.Calendar();
                 lblProfileImage = new javax.swing.JLabel();
                 panelRound8 = new EduManager.Components.PanelRound();
-                myButton2 = new EduManager.Components.MyButton();
                 btnSupport = new EduManager.Components.MyButtonOutLine();
                 btnLogOut = new EduManager.Components.MyButtonOutLine();
 
@@ -120,7 +129,7 @@ public class TeacherForm extends SimpleForm {
                 lblUsernameContent4.setFont(new java.awt.Font("CaskaydiaCove NF", 0, 24)); // NOI18N
                 lblUsernameContent4.setForeground(new java.awt.Color(111, 111, 129));
                 lblUsernameContent4.setText("Opciones");
-                jPanel1.add(lblUsernameContent4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1440, 640, -1, -1));
+                jPanel1.add(lblUsernameContent4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1450, 730, -1, -1));
 
                 panelRound5.setBackground(new java.awt.Color(13, 148, 136));
                 panelRound5.setRoundBottomLeft(30);
@@ -247,8 +256,6 @@ public class TeacherForm extends SimpleForm {
                 panelRound8.setRoundTopLeft(20);
                 panelRound8.setRoundTopRight(20);
 
-                myButton2.setText("Descargar Horario");
-
                 btnSupport.setText("Dudas o Sugerencias");
                 btnSupport.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -267,27 +274,24 @@ public class TeacherForm extends SimpleForm {
                 panelRound8.setLayout(panelRound8Layout);
                 panelRound8Layout.setHorizontalGroup(
                         panelRound8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound8Layout.createSequentialGroup()
-                                .addContainerGap(21, Short.MAX_VALUE)
+                        .addGroup(panelRound8Layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
                                 .addGroup(panelRound8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(btnSupport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(myButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(btnLogOut, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(19, 19, 19))
+                                .addContainerGap(23, Short.MAX_VALUE))
                 );
                 panelRound8Layout.setVerticalGroup(
                         panelRound8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelRound8Layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addComponent(myButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound8Layout.createSequentialGroup()
+                                .addContainerGap(28, Short.MAX_VALUE)
                                 .addComponent(btnSupport, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(49, Short.MAX_VALUE))
+                                .addGap(26, 26, 26))
                 );
 
-                jPanel1.add(panelRound8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1440, 690, 390, 270));
+                jPanel1.add(panelRound8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1440, 780, 390, 180));
 
                 add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1850, 1000));
         }// </editor-fold>//GEN-END:initComponents
@@ -301,7 +305,7 @@ public class TeacherForm extends SimpleForm {
         }//GEN-LAST:event_btnLogOutActionPerformed
 
         private void btnSupportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupportActionPerformed
-                // TODO add your handling code here:
+		// TODO add your handling code here:
 		SupportComponent supportFrame = new SupportComponent();
 		supportFrame.setUser(teacher.getFirstName() + " " + teacher.getLastName());
 		supportFrame.setEmail(teacher.getEmail());
@@ -309,7 +313,7 @@ public class TeacherForm extends SimpleForm {
         }//GEN-LAST:event_btnSupportActionPerformed
 
         private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
-                // TODO add your handling code here:
+		// TODO add your handling code here:
 		FormManager.showForm(new ProfileForm());
         }//GEN-LAST:event_myButton1ActionPerformed
 
@@ -329,7 +333,6 @@ public class TeacherForm extends SimpleForm {
         private javax.swing.JLabel lblUsernameContent8;
         private javax.swing.JLabel lblWelcome;
         private EduManager.Components.MyButton myButton1;
-        private EduManager.Components.MyButton myButton2;
         private EduManager.Components.PanelRound panelRound1;
         private EduManager.Components.PanelRound panelRound5;
         private EduManager.Components.PanelRound panelRound6;

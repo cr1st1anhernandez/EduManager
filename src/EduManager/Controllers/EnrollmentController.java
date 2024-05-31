@@ -33,7 +33,7 @@ public class EnrollmentController {
                 .filter(enrollment -> enrollment.getGroupSubjectId() == groupSubjectId)
                 .collect(Collectors.toList());
     }
-
+    
     public boolean addEnrollment(Enrollment enrollment) {
         try {
             DatabaseAccess.connect();

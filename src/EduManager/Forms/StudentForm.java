@@ -512,6 +512,8 @@ public class StudentForm extends SimpleForm {
 		}
 		String emailTo = student.getEmail();
 		try {
+			pdfGenerator.setCareer(student.getCareer());
+			pdfGenerator.setUsername(student.getFirstName() + " " + student.getLastName());
 			pdfGenerator.sendPdfByEmail(fileName, groupSubjects, emailTo);
 		} catch (MessagingException e) {
 			e.printStackTrace();
