@@ -101,6 +101,7 @@ public class StudentForm extends SimpleForm {
 			groupStudentComponent.setGroupSubjectId(groupSubject.getGroupSubjectId());
 			groupStudentComponent.setStudentId(student.getUserId());
 			groupStudentComponent.setVacancies(groupSubject.getVacancies() + "");
+			groupStudentComponent.setTeacher(groupSubject.getTeacherName());
 			panelSubjects.add(groupStudentComponent);
 		}
 

@@ -29,6 +29,10 @@ public class GroupStudentComponent extends javax.swing.JPanel {
 	public void setDaysOfWeek(String daysOfWeek) {
 		lblDaysOfWeek.setText(daysOfWeek);
 	}
+	
+	public void setTeacher(String teacher) {
+		lblTeacher.setText(teacher);
+	}
 
 	public void setGroup(String group) {
 		lblGroup.setText("Grupo "+group);
@@ -39,7 +43,7 @@ public class GroupStudentComponent extends javax.swing.JPanel {
 	}
 
 	public void setHour(String hour) {
-		lblHour.setText(hour);
+		lblTeacher.setText(hour);
 	}
 
 	public void setSubject(String subject) {
@@ -67,9 +71,10 @@ public class GroupStudentComponent extends javax.swing.JPanel {
                 lblDaysOfWeek = new javax.swing.JLabel();
                 lblSubject = new javax.swing.JLabel();
                 lblVacancies = new javax.swing.JLabel();
-                lblHour = new javax.swing.JLabel();
+                lblTeacher = new javax.swing.JLabel();
                 btnStudentsList = new EduManager.Components.MyButton();
                 lblGroup = new javax.swing.JLabel();
+                lblHour1 = new javax.swing.JLabel();
 
                 panelRound3.setBackground(new java.awt.Color(17, 94, 93));
                 panelRound3.setRoundBottomLeft(20);
@@ -93,10 +98,10 @@ public class GroupStudentComponent extends javax.swing.JPanel {
                 lblVacancies.setText("Vacantes 0");
                 panelRound3.add(lblVacancies, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, -1, 40));
 
-                lblHour.setFont(new java.awt.Font("CaskaydiaCove NF", 1, 18)); // NOI18N
-                lblHour.setForeground(new java.awt.Color(255, 255, 255));
-                lblHour.setText("10:00-11:00");
-                panelRound3.add(lblHour, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 40));
+                lblTeacher.setFont(new java.awt.Font("CaskaydiaCove NF", 1, 18)); // NOI18N
+                lblTeacher.setForeground(new java.awt.Color(255, 255, 255));
+                lblTeacher.setText("Arturo Sorroza");
+                panelRound3.add(lblTeacher, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, -1, 40));
 
                 btnStudentsList.setBackground(new java.awt.Color(255, 255, 255));
                 btnStudentsList.setForeground(new java.awt.Color(102, 102, 102));
@@ -112,6 +117,11 @@ public class GroupStudentComponent extends javax.swing.JPanel {
                 lblGroup.setForeground(new java.awt.Color(13, 148, 136));
                 lblGroup.setText("GRUPO 4SA");
                 panelRound3.add(lblGroup, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, 40));
+
+                lblHour1.setFont(new java.awt.Font("CaskaydiaCove NF", 1, 18)); // NOI18N
+                lblHour1.setForeground(new java.awt.Color(255, 255, 255));
+                lblHour1.setText("10:00-11:00");
+                panelRound3.add(lblHour1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 40));
 
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
                 this.setLayout(layout);
@@ -152,8 +162,9 @@ public class GroupStudentComponent extends javax.swing.JPanel {
         private EduManager.Components.MyButton btnStudentsList;
         private javax.swing.JLabel lblDaysOfWeek;
         private javax.swing.JLabel lblGroup;
-        private javax.swing.JLabel lblHour;
+        private javax.swing.JLabel lblHour1;
         private javax.swing.JLabel lblSubject;
+        private javax.swing.JLabel lblTeacher;
         private javax.swing.JLabel lblVacancies;
         private EduManager.Components.PanelRound panelRound3;
         // End of variables declaration//GEN-END:variables
