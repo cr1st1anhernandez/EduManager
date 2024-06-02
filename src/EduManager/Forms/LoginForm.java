@@ -13,11 +13,10 @@ import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
 import javax.swing.UIManager;
 import raven.toast.Notifications;
-
-
 
 public class LoginForm extends javax.swing.JFrame {
 
@@ -31,6 +30,20 @@ public class LoginForm extends javax.swing.JFrame {
 	}
 	UserController userController = new UserController();
 	Utilities utilities = new Utilities();
+	private void login(){
+		String password = new String(txtPassword.getPassword());
+		String username = myTextField1.getText();
+		if (!userController.login(username, password)) {
+			Notifications.getInstance().show(Notifications.Location.BOTTOM_RIGHT, new ErrorComponent());
+			return;
+		}
+		this.setVisible(false);
+		FlatRobotoFont.install();
+		FlatLaf.registerCustomDefaultsSource("themes");
+		UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
+		FlatMacLightLaf.setup();
+		EventQueue.invokeLater(() -> new Application().setVisible(true));
+	}
 
 	/**
 	 * This method is called from within the constructor to initialize the
@@ -136,6 +149,11 @@ public class LoginForm extends javax.swing.JFrame {
                 });
 
                 myTextField1.setHint("22161096");
+                myTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+                        public void keyPressed(java.awt.event.KeyEvent evt) {
+                                myTextField1KeyPressed(evt);
+                        }
+                });
 
                 passwordContainer.setBackground(new java.awt.Color(255, 255, 255));
                 passwordContainer.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(236, 236, 238), 2, true));
@@ -150,6 +168,11 @@ public class LoginForm extends javax.swing.JFrame {
                         }
                         public void focusLost(java.awt.event.FocusEvent evt) {
                                 txtPasswordFocusLost(evt);
+                        }
+                });
+                txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+                        public void keyPressed(java.awt.event.KeyEvent evt) {
+                                txtPasswordKeyPressed(evt);
                         }
                 });
 
@@ -252,34 +275,37 @@ public class LoginForm extends javax.swing.JFrame {
 
         private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
 		// TODO add your handling code here:
-		String password = new String(txtPassword.getPassword());
-		String username = myTextField1.getText();
-		if (!userController.login(username, password)) {
-			Notifications.getInstance().show(Notifications.Location.BOTTOM_RIGHT, new ErrorComponent());
-			return;
-		}
-		this.setVisible(false);
-		FlatRobotoFont.install();
-		FlatLaf.registerCustomDefaultsSource("themes");
-		UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
-		FlatMacLightLaf.setup();
-		EventQueue.invokeLater(() -> new Application().setVisible(true));
+		login();
         }//GEN-LAST:event_btnLoginActionPerformed
 
         private void btnShowPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowPasswordActionPerformed
-                // TODO add your handling code here:
+		// TODO add your handling code here:
 		utilities.togglePasswordIcon(txtPassword, btnShowPassword);
         }//GEN-LAST:event_btnShowPasswordActionPerformed
 
         private void txtPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPasswordFocusGained
-                // TODO add your handling code here:
+		// TODO add your handling code here:
 		passwordContainer.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(13, 148, 136), 2));
         }//GEN-LAST:event_txtPasswordFocusGained
 
         private void txtPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPasswordFocusLost
-                // TODO add your handling code here:
+		// TODO add your handling code here:
 		passwordContainer.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(236, 236, 238), 2));
         }//GEN-LAST:event_txtPasswordFocusLost
+
+        private void myTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_myTextField1KeyPressed
+		// TODO add your handling code here:
+		if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+			login();
+		}
+        }//GEN-LAST:event_myTextField1KeyPressed
+
+        private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
+                // TODO add your handling code here:
+		if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+			login();
+		}
+        }//GEN-LAST:event_txtPasswordKeyPressed
 
 	/**
 	 * @param args the command line arguments
