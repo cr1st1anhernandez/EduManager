@@ -7,12 +7,12 @@ import EduManager.Controllers.UserController;
 import EduManager.DataBase.Database;
 import EduManager.DataBase.DatabaseAccess;
 import EduManager.Menu.FormManager;
-import EduManger.Excel.InsertCoordinators;
-import EduManger.Excel.InsertGroupSubjects;
-import EduManger.Excel.InsertGroups;
-import EduManger.Excel.InsertStudents;
-import EduManger.Excel.InsertSubjects;
-import EduManger.Excel.InsertTeachers;
+import EduManager.Excel.InsertCoordinators;
+import EduManager.Excel.InsertGroupSubjects;
+import EduManager.Excel.InsertGroups;
+import EduManager.Excel.InsertStudents;
+import EduManager.Excel.InsertSubjects;
+import EduManager.Excel.InsertTeachers;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -30,11 +30,14 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
+import static EduManager.Utils.Utilities.hashPassword;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import raven.toast.Notifications;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Clipboard;
 
 /**
  *
@@ -45,6 +48,7 @@ public class AdminForm extends SimpleForm {
 	public AdminForm() {
 		initComponents();
 	}
+	SuccessComponent successComponent = new SuccessComponent();
 	
 	private static Connection connection;
 	
@@ -92,10 +96,18 @@ public class AdminForm extends SimpleForm {
                 lblUsernameContent4 = new javax.swing.JLabel();
                 panelRound10 = new EduManager.Components.PanelRound();
                 lblUsernameContent13 = new javax.swing.JLabel();
-                lblUsernameContent14 = new javax.swing.JLabel();
-                btnDeleteUser = new EduManager.Components.MyButton();
-                txtDeleteUser = new EduManager.Components.MyTextField();
+                btnHashPassword = new EduManager.Components.MyButton();
+                txtPassword = new EduManager.Components.MyTextField();
                 lblUsernameContent15 = new javax.swing.JLabel();
+                lblUsernameContent14 = new javax.swing.JLabel();
+                lblHashPassword = new javax.swing.JLabel();
+                btnCopy = new javax.swing.JButton();
+                panelRound11 = new EduManager.Components.PanelRound();
+                lblUsernameContent16 = new javax.swing.JLabel();
+                lblUsernameContent17 = new javax.swing.JLabel();
+                btnDeleteUser1 = new EduManager.Components.MyButton();
+                txtDeleteUser1 = new EduManager.Components.MyTextField();
+                lblUsernameContent18 = new javax.swing.JLabel();
 
                 setForeground(new java.awt.Color(246, 246, 246));
                 setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -256,26 +268,41 @@ public class AdminForm extends SimpleForm {
                 panelRound10.setRoundTopRight(20);
 
                 lblUsernameContent13.setFont(new java.awt.Font("CaskaydiaCove NF", 1, 28)); // NOI18N
-                lblUsernameContent13.setForeground(new java.awt.Color(225, 29, 72));
-                lblUsernameContent13.setText("Acciones de riesgo");
+                lblUsernameContent13.setForeground(new java.awt.Color(13, 148, 136));
+                lblUsernameContent13.setText("Obtener el hash de una contraseña");
 
-                lblUsernameContent14.setFont(new java.awt.Font("CaskaydiaCove NF", 0, 24)); // NOI18N
-                lblUsernameContent14.setForeground(new java.awt.Color(111, 111, 129));
-                lblUsernameContent14.setText("Eliminar algun usuario");
-
-                btnDeleteUser.setBackground(new java.awt.Color(225, 29, 72));
-                btnDeleteUser.setText("Eliminar");
-                btnDeleteUser.addActionListener(new java.awt.event.ActionListener() {
+                btnHashPassword.setText("Hashear");
+                btnHashPassword.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                btnDeleteUserActionPerformed(evt);
+                                btnHashPasswordActionPerformed(evt);
                         }
                 });
 
-                txtDeleteUser.setHint("22161096");
+                txtPassword.setHint("Password9$");
 
                 lblUsernameContent15.setFont(new java.awt.Font("CaskaydiaCove NF", 0, 16)); // NOI18N
                 lblUsernameContent15.setForeground(new java.awt.Color(111, 111, 129));
-                lblUsernameContent15.setText("Ingresar el numero de control");
+                lblUsernameContent15.setText("Ingresar contraseña");
+
+                lblUsernameContent14.setFont(new java.awt.Font("CaskaydiaCove NF", 1, 28)); // NOI18N
+                lblUsernameContent14.setForeground(new java.awt.Color(13, 148, 136));
+                lblUsernameContent14.setText("Contraseña hasheada");
+
+                lblHashPassword.setFont(new java.awt.Font("CaskaydiaCove NF", 1, 18)); // NOI18N
+                lblHashPassword.setForeground(new java.awt.Color(153, 153, 153));
+                lblHashPassword.setText("bd9509aba7d1e5ab68bc526195d369f2418f26f044f5bc2c9af3871a486a6bd3");
+
+                btnCopy.setBackground(new java.awt.Color(255, 255, 255));
+                btnCopy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/EduManager/Icons/copy.png"))); // NOI18N
+                btnCopy.setBorderPainted(false);
+                btnCopy.setContentAreaFilled(false);
+                btnCopy.setFocusPainted(false);
+                btnCopy.setFocusable(false);
+                btnCopy.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                btnCopyActionPerformed(evt);
+                        }
+                });
 
                 javax.swing.GroupLayout panelRound10Layout = new javax.swing.GroupLayout(panelRound10);
                 panelRound10.setLayout(panelRound10Layout);
@@ -285,36 +312,112 @@ public class AdminForm extends SimpleForm {
                                 .addGap(20, 20, 20)
                                 .addGroup(panelRound10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(panelRound10Layout.createSequentialGroup()
-                                                .addComponent(lblUsernameContent14)
-                                                .addGap(0, 1062, Short.MAX_VALUE))
-                                        .addGroup(panelRound10Layout.createSequentialGroup()
-                                                .addComponent(txtDeleteUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addGap(18, 18, 18)
-                                                .addComponent(btnDeleteUser, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(btnHashPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGroup(panelRound10Layout.createSequentialGroup()
                                                 .addGroup(panelRound10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(lblUsernameContent15)
                                                         .addComponent(lblUsernameContent13))
-                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                                .addContainerGap(842, Short.MAX_VALUE))
+                                        .addGroup(panelRound10Layout.createSequentialGroup()
+                                                .addGroup(panelRound10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(lblHashPassword)
+                                                        .addComponent(lblUsernameContent14))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(btnCopy)
+                                                .addGap(0, 0, Short.MAX_VALUE))))
                 );
                 panelRound10Layout.setVerticalGroup(
                         panelRound10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(panelRound10Layout.createSequentialGroup()
                                 .addGap(14, 14, 14)
                                 .addComponent(lblUsernameContent13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblUsernameContent14)
-                                .addGap(5, 5, 5)
+                                .addGap(18, 18, 18)
                                 .addComponent(lblUsernameContent15)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(panelRound10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(txtDeleteUser, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btnDeleteUser, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(18, Short.MAX_VALUE))
+                                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnHashPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(panelRound10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(panelRound10Layout.createSequentialGroup()
+                                                .addGap(18, 18, 18)
+                                                .addComponent(lblUsernameContent14)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(lblHashPassword))
+                                        .addGroup(panelRound10Layout.createSequentialGroup()
+                                                .addGap(47, 47, 47)
+                                                .addComponent(btnCopy)))
+                                .addContainerGap(135, Short.MAX_VALUE))
                 );
 
-                jPanel1.add(panelRound10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 600, 1390, -1));
+                jPanel1.add(panelRound10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 600, 1390, 370));
+
+                panelRound11.setBackground(new java.awt.Color(255, 255, 255));
+                panelRound11.setRoundBottomLeft(20);
+                panelRound11.setRoundBottomRight(20);
+                panelRound11.setRoundTopLeft(20);
+                panelRound11.setRoundTopRight(20);
+
+                lblUsernameContent16.setFont(new java.awt.Font("CaskaydiaCove NF", 1, 28)); // NOI18N
+                lblUsernameContent16.setForeground(new java.awt.Color(225, 29, 72));
+                lblUsernameContent16.setText("Acciones de riesgo");
+
+                lblUsernameContent17.setFont(new java.awt.Font("CaskaydiaCove NF", 0, 24)); // NOI18N
+                lblUsernameContent17.setForeground(new java.awt.Color(111, 111, 129));
+                lblUsernameContent17.setText("Eliminar algun usuario");
+
+                btnDeleteUser1.setBackground(new java.awt.Color(225, 29, 72));
+                btnDeleteUser1.setText("Eliminar");
+                btnDeleteUser1.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                btnDeleteUser1ActionPerformed(evt);
+                        }
+                });
+
+                txtDeleteUser1.setHint("22161096");
+
+                lblUsernameContent18.setFont(new java.awt.Font("CaskaydiaCove NF", 0, 16)); // NOI18N
+                lblUsernameContent18.setForeground(new java.awt.Color(111, 111, 129));
+                lblUsernameContent18.setText("Ingresar el numero de control");
+
+                javax.swing.GroupLayout panelRound11Layout = new javax.swing.GroupLayout(panelRound11);
+                panelRound11.setLayout(panelRound11Layout);
+                panelRound11Layout.setHorizontalGroup(
+                        panelRound11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelRound11Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addGroup(panelRound11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(panelRound11Layout.createSequentialGroup()
+                                                .addComponent(lblUsernameContent16)
+                                                .addContainerGap(82, Short.MAX_VALUE))
+                                        .addGroup(panelRound11Layout.createSequentialGroup()
+                                                .addGroup(panelRound11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(lblUsernameContent18)
+                                                        .addGroup(panelRound11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                                .addComponent(lblUsernameContent17)
+                                                                .addComponent(txtDeleteUser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                .addComponent(btnDeleteUser1, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)))
+                                                .addGap(0, 0, Short.MAX_VALUE))))
+                );
+                panelRound11Layout.setVerticalGroup(
+                        panelRound11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelRound11Layout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(lblUsernameContent16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblUsernameContent17)
+                                .addGap(19, 19, 19)
+                                .addComponent(lblUsernameContent18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtDeleteUser1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnDeleteUser1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(366, Short.MAX_VALUE))
+                );
+
+                jPanel1.add(panelRound11, new org.netbeans.lib.awtextra.AbsoluteConstraints(1440, 360, 390, 610));
 
                 add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1850, 1000));
         }// </editor-fold>//GEN-END:initComponents
@@ -352,23 +455,44 @@ public class AdminForm extends SimpleForm {
 		
         }//GEN-LAST:event_btnImportDataActionPerformed
 
-        private void btnDeleteUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteUserActionPerformed
+        private void btnHashPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHashPasswordActionPerformed
                 // TODO add your handling code here:
-		UserController userController = new UserController();
-		userController.deleteRecordById(Integer.parseInt(txtDeleteUser.getText()));
-        }//GEN-LAST:event_btnDeleteUserActionPerformed
+		String password = txtPassword.getText();
+		String hashPassword = hashPassword(password);
+		lblHashPassword.setText(hashPassword);
+        }//GEN-LAST:event_btnHashPasswordActionPerformed
+
+        private void btnDeleteUser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteUser1ActionPerformed
+                // TODO add your handling code here:
+        }//GEN-LAST:event_btnDeleteUser1ActionPerformed
+
+        private void btnCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCopyActionPerformed
+                // TODO add your handling code here:
+		String hashPassword = lblHashPassword.getText();
+		StringSelection stringSelection = new StringSelection(hashPassword);
+		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		clipboard.setContents(stringSelection, null);
+		successComponent.setText("Contraseña copiada al portapapeles");
+		Notifications.getInstance().show(Notifications.Location.BOTTOM_RIGHT, successComponent);
+        }//GEN-LAST:event_btnCopyActionPerformed
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
         private EduManager.Components.MyButton btnConfigs;
-        private EduManager.Components.MyButton btnDeleteUser;
+        private javax.swing.JButton btnCopy;
+        private EduManager.Components.MyButton btnDeleteUser1;
+        private EduManager.Components.MyButton btnHashPassword;
         private EduManager.Components.MyButton btnImportData;
         private EduManager.Components.MyButtonOutLine btnLogOut;
         private javax.swing.JLabel jLabel3;
         private javax.swing.JPanel jPanel1;
+        private javax.swing.JLabel lblHashPassword;
         private javax.swing.JLabel lblUsernameContent10;
         private javax.swing.JLabel lblUsernameContent13;
         private javax.swing.JLabel lblUsernameContent14;
         private javax.swing.JLabel lblUsernameContent15;
+        private javax.swing.JLabel lblUsernameContent16;
+        private javax.swing.JLabel lblUsernameContent17;
+        private javax.swing.JLabel lblUsernameContent18;
         private javax.swing.JLabel lblUsernameContent3;
         private javax.swing.JLabel lblUsernameContent4;
         private javax.swing.JLabel lblUsernameContent5;
@@ -379,10 +503,12 @@ public class AdminForm extends SimpleForm {
         private javax.swing.JLabel lblWelcome;
         private EduManager.Components.PanelRound panelRound1;
         private EduManager.Components.PanelRound panelRound10;
+        private EduManager.Components.PanelRound panelRound11;
         private EduManager.Components.PanelRound panelRound5;
         private EduManager.Components.PanelRound panelRound8;
         private raven.datetime.component.time.TimePicker timePicker1;
         private raven.datetime.component.time.TimePicker timePicker2;
-        private EduManager.Components.MyTextField txtDeleteUser;
+        private EduManager.Components.MyTextField txtDeleteUser1;
+        private EduManager.Components.MyTextField txtPassword;
         // End of variables declaration//GEN-END:variables
 }
