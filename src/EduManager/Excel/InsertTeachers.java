@@ -1,4 +1,4 @@
-package EduManger.Excel;
+package EduManager.Excel;
 
 import java.io.FileInputStream;
 import java.io.IOException;

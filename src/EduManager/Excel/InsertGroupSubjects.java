@@ -1,4 +1,4 @@
-package EduManger.Excel;
+package EduManager.Excel;
 
 import EduManager.Controllers.GroupSubjectController;
 import EduManager.Entities.GroupSubject;
