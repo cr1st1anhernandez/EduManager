@@ -1,8 +1,26 @@
 # 🎓 EduManager 📚
 ¡Bienvenido a EduManager! Una solución integral para la gestión educativa, diseñada para ayudarte a administrar horarios de clases, generar PDFs y enviar correos electrónicos automáticamente. 🌟
+
+<!-- INFORMATION -->
+
+### Gracias por Visitar el proyecto!
+
+<img src="https://github.com/cr1st1anhernandez/EduManager/blob/main/screenshot/login.png" alt="img" align="right" width="320px">
+
+Esta es una lista de las cosas que puedes hacer con EduManager:
+
+- **Control de Estudiantes**
+- **Control de Profesores**
+- **Control de Cordinadores**
+- **Inscripcion de Materias**
+- **Calificar Grupos**
+- **Envio de horario por correo**
+- **Descargar el horario como un pdf**
+---
+
 ## Environment Variables
 
-To run this project, you will need to add the following environment variables to your .env file
+Para ejecutar este proyecto, necesitas agregar las siguientes variables de entorno en el archivo .env
 `SERVER`
 `USER_ID`
 `DATABASE`
@@ -10,24 +28,29 @@ To run this project, you will need to add the following environment variables to
 `EMAIL`
 `EMAIL_PASSWORD`
 
-#Capturas de Pantalla
+## Vistas de los usuarios
 
-## Login
-Pantalla de inicio de sesión para acceder a la aplicación.
-![loginImage](https://github.com/cr1st1anhernandez/EduManager/blob/main/screenshot/login.png)
-## StudentForm
-Formulario para agregar o editar la información de los estudiantes.
-![studentFormImage](https://github.com/cr1st1anhernandez/EduManager/blob/main/screenshot/studentForm.png)
-## TeacherForm
-![teacherFormImage](https://github.com/cr1st1anhernandez/EduManager/blob/main/screenshot/teacherForm.png)
-## StudentsList
-![studentsListImage](https://github.com/cr1st1anhernandez/EduManager/blob/main/screenshot/studentsList.png)
-## CoordinatorForm
-![coordinatorFormImage](https://github.com/cr1st1anhernandez/EduManager/blob/main/screenshot/coordinatorForm.png)
-## SendEmail to Support
-![sendEmailToSupport](https://github.com/cr1st1anhernandez/EduManager/blob/main/screenshot/email.png)
-## Example schedule Download
-![scheduleExampleDownload](https://github.com/cr1st1anhernandez/EduManager/blob/main/screenshot/schedule.png)
+<p align="center">
+  <img src="https://github.com/cr1st1anhernandez/EduManager/blob/main/screenshot/studentForm.png" width="400" />
+  <img src="https://github.com/cr1st1anhernandez/EduManager/blob/main/screenshot/teacherForm.png" width="400" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/cr1st1anhernandez/EduManager/blob/main/screenshot/coordinatorForm.png" width="400" />
+  <img src="https://github.com/cr1st1anhernandez/EduManager/blob/main/screenshot/AdminForm.png" width="400" />
+</p>
+
+## Implementaciones
+
+<p align="center">
+  <img src="https://github.com/cr1st1anhernandez/EduManager/blob/main/screenshot/studentsList.png" width="400" />
+  <img src="https://github.com/cr1st1anhernandez/EduManager/blob/main/screenshot/email.png" width="400" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/cr1st1anhernandez/EduManager/blob/main/screenshot/schedule.png" width="400" />
+  <img src="https://github.com/cr1st1anhernandez/EduManager/blob/main/screenshot/emailComponent.png" width="400" />
+</p>
 
 📬 Contribuciones
 
