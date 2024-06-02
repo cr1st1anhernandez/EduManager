@@ -44,20 +44,20 @@ public class ProfileForm extends SimpleForm {
                 if (user instanceof Student) {
                         Student student = (Student) user;
                         myLabelCurp.setText(student.getCurp());
-                        myLabelDate.setText(student.getBirthDate().toString());
-                        myLabelGender.setText(String.valueOf(student.getGender()));
+                        myLabelDate.setText("NO DISPONIBLE");
+                        myLabelGender.setText(student.getGender()+"");
                         myLabelControlNumber.setText(student.getUserId() + "");
                 } else if (user instanceof Teacher) {
                         Teacher teacher = (Teacher) user;
                         myLabelCurp.setText(teacher.getCurp());
-                        myLabelDate.setText(teacher.getBirthDate().toString());
-                        myLabelGender.setText(String.valueOf(teacher.getGender()));
+                        myLabelDate.setText("NO DISPONIBLE");
+                        myLabelGender.setText(teacher.getGender()+"");
                         myLabelControlNumber.setText(teacher.getUserId() + "");
                 } else if (user instanceof Coordinator) {
                         Coordinator coordinator = (Coordinator) user;
                         myLabelCurp.setText(coordinator.getCurp());
-                        myLabelDate.setText(coordinator.getBirthDate().toString());
-                        myLabelGender.setText(String.valueOf(coordinator.getGender()));
+                        myLabelDate.setText("NO DISPONIBLE");
+                        myLabelGender.setText(coordinator.getGender()+"");
                         myLabelControlNumber.setText(coordinator.getUserId() + "");
                 }
         }

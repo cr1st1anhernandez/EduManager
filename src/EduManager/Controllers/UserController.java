@@ -2,6 +2,7 @@ package EduManager.Controllers;
 
 import static EduManager.Utils.Utilities.hashPassword;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -119,7 +120,6 @@ public class UserController {
 				student.setImagePath(resultSet.getString("imagePath"));
 				student.setCareer(resultSet.getString("career"));
 				student.setSemester(resultSet.getInt("semester"));
-				student.setBirthDate(resultSet.getDate("birthDate"));
 				String genderStr = resultSet.getString("gender");
 				if (genderStr != null && !genderStr.isEmpty()) {
 					student.setGender(genderStr.charAt(0));
@@ -143,7 +143,6 @@ public class UserController {
 				teacher.setEmail(resultSet.getString("email"));
 				teacher.setPhoneNumber(resultSet.getString("phoneNumber"));
 				teacher.setImagePath(resultSet.getString("imagePath"));
-				teacher.setBirthDate(resultSet.getDate("birthDate"));
 				String genderStr = resultSet.getString("gender");
 				if (genderStr != null && !genderStr.isEmpty()) {
 					teacher.setGender(genderStr.charAt(0));
@@ -168,7 +167,6 @@ public class UserController {
 				coordinator.setEmail(resultSet.getString("email"));
 				coordinator.setPhoneNumber(resultSet.getString("phoneNumber"));
 				coordinator.setImagePath(resultSet.getString("imagePath"));
-				coordinator.setBirthDate(resultSet.getDate("birthDate"));
 				String genderStr = resultSet.getString("gender");
 				if (genderStr != null && !genderStr.isEmpty()) {
 					coordinator.setGender(genderStr.charAt(0));
@@ -250,6 +248,69 @@ public class UserController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
+		}
+	}
+
+	public static boolean deleteRecordById(int id) {
+		Connection connection = null;
+		try {
+			connection = DatabaseAccess.getConnection();
+			connection.setAutoCommit(false);
+
+			String[] tables = {"teacher", "coordinator", "student"};
+			String[] idColumns = {"teacherId", "coordinatorId", "studentId"};
+
+			for (int i = 0; i < tables.length; i++) {
+				if (recordExists(connection, tables[i], idColumns[i], id)) {
+					deleteRecord(connection, tables[i], idColumns[i], id);
+					connection.commit();
+					System.out.println("Registro eliminado correctamente de la tabla " + tables[i]);
+					return true;
+				}
+			}
+
+			System.out.println("No se encontró ningún registro con el id proporcionado en las tablas especificadas.");
+			return false;
+		} catch (SQLException ex) {
+			System.out.println("Error de base de datos");
+			ex.printStackTrace();
+			if (connection != null) {
+				try {
+					connection.rollback();
+				} catch (SQLException rollbackEx) {
+					rollbackEx.printStackTrace();
+				}
+			}
+			return false;
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException closeEx) {
+					closeEx.printStackTrace();
+				}
+			}
+		}
+	}
+
+	private static boolean recordExists(Connection connection, String tableName, String idColumn, int id) throws SQLException {
+		String sql = "SELECT COUNT(*) FROM " + tableName + " WHERE " + idColumn + " = ?";
+		try (PreparedStatement statement = connection.prepareStatement(sql)) {
+			statement.setInt(1, id);
+			try (ResultSet resultSet = statement.executeQuery()) {
+				if (resultSet.next()) {
+					return resultSet.getInt(1) > 0;
+				}
+			}
+		}
+		return false;
+	}
+
+	private static void deleteRecord(Connection connection, String tableName, String idColumn, int id) throws SQLException {
+		String sql = "DELETE FROM " + tableName + " WHERE " + idColumn + " = ?";
+		try (PreparedStatement statement = connection.prepareStatement(sql)) {
+			statement.setInt(1, id);
+			statement.executeUpdate();
 		}
 	}
 }

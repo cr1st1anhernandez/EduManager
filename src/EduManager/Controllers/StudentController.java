@@ -56,4 +56,31 @@ public class StudentController {
         preparedStatement.setInt(1, studentId);
         preparedStatement.executeUpdate();
     }
+    
+    public boolean createStudent(Student student) {
+    try {
+        DatabaseAccess.connect();
+        String query = "INSERT INTO Student (studentId, password, firstName, lastName, email, phoneNumber, curp, gender, career, semester, imagePath) " +
+                       "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement preparedStatement = DatabaseAccess.getConnection().prepareStatement(query);
+        preparedStatement.setInt(1, student.getUserId());
+        preparedStatement.setString(2, student.getPassword());
+        preparedStatement.setString(3, student.getFirstName());
+        preparedStatement.setString(4, student.getLastName());
+        preparedStatement.setString(5, student.getEmail());
+        preparedStatement.setString(6, student.getPhoneNumber());
+        preparedStatement.setString(7, student.getCurp());
+        preparedStatement.setString(8, String.valueOf(student.getGender()));
+        preparedStatement.setString(9, student.getCareer());
+        preparedStatement.setInt(10, student.getSemester());
+        preparedStatement.setString(11, student.getImagePath());
+
+        int rowsAffected = preparedStatement.executeUpdate();
+        return rowsAffected > 0;
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    }
+}
+
 }

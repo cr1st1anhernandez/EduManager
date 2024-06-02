@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import EduManager.DataBase.DatabaseAccess;
 import EduManager.Entities.GroupSubject;
+import java.sql.Connection;
 
 public class GroupSubjectController {
     List<GroupSubject> groupSubjects = new ArrayList<>();
@@ -28,6 +29,30 @@ public class GroupSubjectController {
         dayMap.put('D', "Domingo");
     }
 
+     public boolean addGroupSubject(GroupSubject groupSubject) {
+        String query = "INSERT INTO GroupSubject (groupSubjectId, groupId, subjectId, startTime, endTime, teacherId, daysOfWeek, capacity, vacancies) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+	    Connection connection = DatabaseAccess.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+	    preparedStatement.setInt(1, groupSubject.getGroupSubjectId());
+            preparedStatement.setString(2, groupSubject.getGroupId());
+            preparedStatement.setInt(3, groupSubject.getSubjectId());
+            preparedStatement.setTime(4, groupSubject.getStartTime());
+            preparedStatement.setTime(5, groupSubject.getEndTime());
+            preparedStatement.setInt(6, groupSubject.getTeacherId());
+            preparedStatement.setString(7, groupSubject.getDaysOfWeek());
+            preparedStatement.setInt(8, groupSubject.getCapacity());
+            preparedStatement.setInt(9, groupSubject.getVacancies());
+
+            int rowsInserted = preparedStatement.executeUpdate();
+            return rowsInserted > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
     private static String convertDaysOfWeek(String abbreviatedDays) {
         StringBuilder fullDays = new StringBuilder();
         for (char day : abbreviatedDays.toCharArray()) {

@@ -30,6 +30,20 @@ public class SubjectController {
         }
         return subjects;
     }
+    
+    public boolean createSubject(Subject subject) {
+        try {
+            DatabaseAccess.connect();
+            String query = "INSERT INTO Subject (name) VALUES (?)";
+            PreparedStatement preparedStatement = DatabaseAccess.getConnection().prepareStatement(query);
+            preparedStatement.setString(1, subject.getName());
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
 
 	

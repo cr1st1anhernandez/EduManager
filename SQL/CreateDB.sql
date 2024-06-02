@@ -10,7 +10,6 @@ CREATE TABLE Teacher (
     email VARCHAR(255) NOT NULL UNIQUE,
     phoneNumber VARCHAR(20) NOT NULL,
     curp VARCHAR(18) NOT NULL,
-    birthDate DATE NOT NULL,
     gender CHAR(1) NOT NULL,
     career VARCHAR(255) NOT NULL,
     imagePath VARCHAR(255) NOT NULL DEFAULT '/EduManager/Images_profile/profile.png',
@@ -25,7 +24,6 @@ CREATE TABLE Coordinator (
     email VARCHAR(255) NOT NULL UNIQUE,
     phoneNumber VARCHAR(20) NOT NULL,
     curp VARCHAR(18) NOT NULL,
-    birthDate DATE NOT NULL,
     gender CHAR(1) NOT NULL,
     area VARCHAR(255) NOT NULL,
     imagePath VARCHAR(255) NOT NULL DEFAULT '/EduManager/Images_profile/profile.png',
@@ -33,14 +31,13 @@ CREATE TABLE Coordinator (
 );
 
 CREATE TABLE Student (
-    studentId INT NOT NULL AUTO_INCREMENT,
+    studentId INT NOT NULL,
     password VARCHAR(255) NOT NULL,
     firstName VARCHAR(255) NOT NULL,
     lastName VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     phoneNumber VARCHAR(20) NOT NULL,
     curp VARCHAR(18) NOT NULL,
-    birthDate DATE NOT NULL,
     gender CHAR(1) NOT NULL,
     career VARCHAR(255) NOT NULL,
     semester TINYINT NOT NULL,
@@ -60,7 +57,7 @@ CREATE TABLE `Group` (
 );
 
 CREATE TABLE GroupSubject (
-    groupSubjectId INT NOT NULL AUTO_INCREMENT,
+    groupSubjectId INT NOT NULL,
     groupId VARCHAR(3) NOT NULL,
     subjectId INT NOT NULL,
     startTime TIME NOT NULL,
