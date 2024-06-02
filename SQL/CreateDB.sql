@@ -92,3 +92,7 @@ CREATE TABLE Enrollment (
     FOREIGN KEY (groupSubjectId) REFERENCES GroupSubject(groupSubjectId),
     UNIQUE (studentId, groupSubjectId)
 );
+
+INSERT INTO Admin (adminId, password, firstName, lastName, email, phoneNumber)
+VALUES
+(11111111, 'bd9509aba7d1e5ab68bc526195d369f2418f26f044f5bc2c9af3871a486a6bd3', 'admin', 'admin', 'admin@gmail.com', '9512125298');
