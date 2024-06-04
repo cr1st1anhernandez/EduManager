@@ -527,13 +527,7 @@ public class StudentForm extends SimpleForm {
 
 	private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnLogOutActionPerformed
 		// TODO add your handling code here:
-		JFrame currentFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
-		currentFrame.dispose();
-
-		EventQueue.invokeLater(() -> {
-			JFrame loginForm = new LoginForm();
-			loginForm.setVisible(true);
-		});
+		UserController.logOut();
 	}// GEN-LAST:event_btnLogOutActionPerformed
 
 	private void btnSupportActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSupportActionPerformed

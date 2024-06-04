@@ -403,10 +403,7 @@ public class CoordinatorForm extends SimpleForm {
 
         private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
 		// TODO add your handling code here:
-		this.setVisible(false);
-		JFrame loginForm = new LoginForm();
-		loginForm.setVisible(true);
-		Application app = new Application();
+		UserController.logOut();
         }//GEN-LAST:event_btnLogOutActionPerformed
 
         private void btnConfigsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfigsActionPerformed

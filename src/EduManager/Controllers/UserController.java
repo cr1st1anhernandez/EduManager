@@ -1,5 +1,6 @@
 package EduManager.Controllers;
 
+import EduManager.Application.Application;
 import static EduManager.Utils.Utilities.hashPassword;
 
 import java.sql.Connection;
@@ -7,12 +8,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.JFrame;
+
 import EduManager.DataBase.DatabaseAccess;
 import EduManager.Entities.Admin;
 import EduManager.Entities.Coordinator;
 import EduManager.Entities.Student;
 import EduManager.Entities.Teacher;
 import EduManager.Entities.User;
+import EduManager.Forms.LoginForm;
+import java.awt.Window;
 import lombok.Data;
 
 @Data
@@ -81,7 +86,8 @@ public class UserController {
 			// Guardar solo la ruta relativa, sin la carpeta "src"
 			String baseDir = System.getProperty("user.dir").replace("\\", "/");
 			String newPathNormalized = newPath.replace("\\", "/");
-			String relativePath = newPathNormalized.replaceFirst("^.*?/EduManager", "/EduManager").replace("/src/EduManager", "");
+			String relativePath = newPathNormalized.replaceFirst("^.*?/EduManager", "/EduManager").replace("/src/EduManager",
+					"");
 
 			PreparedStatement preparedStatement = DatabaseAccess.getConnection().prepareStatement(query);
 			preparedStatement.setString(1, relativePath);
@@ -198,12 +204,22 @@ public class UserController {
 		return false;
 	}
 
-	public static void logout() {
+	public static void logOut() {
 		user = null;
 		student = null;
 		teacher = null;
 		coordinator = null;
 		admin = null;
+		Window[] windows = Window.getWindows();
+
+		for (Window window : windows) {
+			if (window instanceof JFrame) {
+				window.dispose();
+			}
+		}
+		JFrame loginForm = new LoginForm();
+		loginForm.setVisible(true);
+		Application app = new Application();
 	}
 
 	public static boolean changePassword(String newPassword) {
@@ -257,8 +273,8 @@ public class UserController {
 			connection = DatabaseAccess.getConnection();
 			connection.setAutoCommit(false);
 
-			String[] tables = {"teacher", "coordinator", "student"};
-			String[] idColumns = {"teacherId", "coordinatorId", "studentId"};
+			String[] tables = { "teacher", "coordinator", "student" };
+			String[] idColumns = { "teacherId", "coordinatorId", "studentId" };
 
 			for (int i = 0; i < tables.length; i++) {
 				if (recordExists(connection, tables[i], idColumns[i], id)) {
@@ -293,7 +309,8 @@ public class UserController {
 		}
 	}
 
-	private static boolean recordExists(Connection connection, String tableName, String idColumn, int id) throws SQLException {
+	private static boolean recordExists(Connection connection, String tableName, String idColumn, int id)
+			throws SQLException {
 		String sql = "SELECT COUNT(*) FROM " + tableName + " WHERE " + idColumn + " = ?";
 		try (PreparedStatement statement = connection.prepareStatement(sql)) {
 			statement.setInt(1, id);
@@ -306,7 +323,8 @@ public class UserController {
 		return false;
 	}
 
-	private static void deleteRecord(Connection connection, String tableName, String idColumn, int id) throws SQLException {
+	private static void deleteRecord(Connection connection, String tableName, String idColumn, int id)
+			throws SQLException {
 		String sql = "DELETE FROM " + tableName + " WHERE " + idColumn + " = ?";
 		try (PreparedStatement statement = connection.prepareStatement(sql)) {
 			statement.setInt(1, id);

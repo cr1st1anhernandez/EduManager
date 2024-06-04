@@ -4,7 +4,6 @@ import EduManager.Application.Application;
 import EduManager.Components.SimpleForm;
 import EduManager.Components.SuccessComponent;
 import EduManager.Controllers.UserController;
-import EduManager.DataBase.Database;
 import EduManager.DataBase.DatabaseAccess;
 import EduManager.Menu.FormManager;
 import EduManager.Excel.InsertCoordinators;
@@ -13,12 +12,6 @@ import EduManager.Excel.InsertGroups;
 import EduManager.Excel.InsertStudents;
 import EduManager.Excel.InsertSubjects;
 import EduManager.Excel.InsertTeachers;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -26,14 +19,10 @@ import java.text.ParseException;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import static EduManager.Utils.Utilities.hashPassword;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import raven.toast.Notifications;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
@@ -429,10 +418,7 @@ public class AdminForm extends SimpleForm {
 
         private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
 		// TODO add your handling code here:
-		this.setVisible(false);
-		JFrame loginForm = new LoginForm();
-		loginForm.setVisible(true);
-		Application app = new Application();
+		UserController.logOut();
         }//GEN-LAST:event_btnLogOutActionPerformed
 
         private void btnImportDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportDataActionPerformed
